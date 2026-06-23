@@ -137,6 +137,88 @@ body {
   margin-top: 30px;
 }
 
+/* PRIMARY BUTTON */
+
+.primary-btn {
+
+  background: linear-gradient(
+    135deg,
+    #198754,
+    #20c997
+  );
+
+  color: white;
+
+  padding: 16px 34px;
+
+  border-radius: 14px;
+
+  text-decoration: none;
+
+  font-size: 18px;
+
+  font-weight: 600;
+
+  border: none;
+
+  transition: 0.3s ease;
+
+  box-shadow:
+    0 10px 25px rgba(25,135,84,0.25);
+
+  display: inline-flex;
+
+  align-items: center;
+  justify-content: center;
+}
+
+.primary-btn:hover {
+
+  transform: translateY(-4px);
+
+  box-shadow:
+    0 15px 30px rgba(25,135,84,0.35);
+}
+
+/* SECONDARY BUTTON */
+
+.secondary-btn {
+
+  background: white;
+
+  color: #222;
+
+  padding: 16px 34px;
+
+  border-radius: 14px;
+
+  text-decoration: none;
+
+  font-size: 18px;
+
+  font-weight: 600;
+
+  border: 2px solid #dcdcdc;
+
+  transition: 0.3s ease;
+
+  display: inline-flex;
+
+  align-items: center;
+  justify-content: center;
+}
+
+.secondary-btn:hover {
+
+  background: #f8f9fa;
+
+  transform: translateY(-4px);
+
+  border-color: #198754;
+
+  color: #198754;
+}
+
 /* Hero Image */
 
 .hero-image {

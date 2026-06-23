@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import "../styles/LandingPage.css";
 
 import { GiCow } from "react-icons/gi";
@@ -26,10 +27,13 @@ export default function LandingPage() {
             <a href="#">Features</a>
             <a href="#">About</a>
 
+            <Link to = "login">
             <button className="signin-btn">
               Sign In
             </button>
 
+            </Link>
+            
           </div>
 
         </div>
@@ -63,13 +67,19 @@ export default function LandingPage() {
 
                 <div className="hero-buttons">
 
-                  <button className="btn btn-success btn-lg px-3">
-                    Get Started
+                  <Link to = "/register">
+                    <button className="primary-btn">
+                     Get Started
                   </button>
+                  </Link>
+                  
 
-                  <button className="btn btn-outline-dark btn-lg px-3">
+                  <a href="/features">
+                    <button className="secondary-btn">
                     Learn More
                   </button>
+                  </a>
+                  
 
                 </div>
 
@@ -97,7 +107,8 @@ export default function LandingPage() {
 
 {/* Features */}
 
-<section className="container pb-5">
+<section className="features"
+          id="features" >
 
   <div className="row g-4">
 
