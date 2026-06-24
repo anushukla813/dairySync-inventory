@@ -1,3 +1,5 @@
+import { loginUser } from "../../services/authService";
+import { useState } from "react";
 import "../../styles/Auth.css";
 
 import { Link } from "react-router-dom";
@@ -9,6 +11,59 @@ import {
 } from "react-icons/fa";
 
 export default function Login() {
+
+  const [formData, setFormData] = useState({
+  email: "",
+  password: ""
+});
+
+const [errors, setErrors] = useState({});
+
+const handleChange = (e) => {
+
+  setFormData({
+    ...formData,
+    [e.target.name]: e.target.value
+  });
+};
+
+const handleSubmit = (e) => {
+
+  e.preventDefault();
+
+  let newErrors = {};
+
+  if (!formData.email) {
+    newErrors.email = "Email is required";
+  }
+
+  if (!formData.password) {
+    newErrors.password = "Password is required";
+  }
+
+  setErrors(newErrors);
+
+  if (Object.keys(newErrors).length === 0) {
+
+    const result = loginUser(
+      formData.email,
+      formData.password
+    );
+
+    if (!result.success) {
+
+      setErrors({
+        password: result.message
+      });
+
+      return;
+    }
+
+    alert("Login Successful");
+
+    window.location.href = "/dashboard";
+  }
+};
 
   return (
 
@@ -26,7 +81,7 @@ export default function Login() {
           Sign in to continue to DairySync
         </p>
 
-        <form>
+        <form onSubmit={handleSubmit}>
 
           <div className="input-group">
 
@@ -34,8 +89,18 @@ export default function Login() {
 
             <input
               type="email"
+              name="email"
               placeholder="Enter Email"
+              value={formData.email}
+              onChange={handleChange}
             />
+
+            {
+              errors.email &&
+              <p className="error-text">
+                {errors.email}
+              </p>
+            }
 
           </div>
 
@@ -45,8 +110,18 @@ export default function Login() {
 
             <input
               type="password"
+              name="password"
               placeholder="Enter Password"
+              value={formData.password}
+              onChange={handleChange}
             />
+
+            {
+              errors.password &&
+              <p className="error-text">
+                {errors.password}
+              </p>
+            }
 
           </div>
 
