@@ -10,6 +10,7 @@ import Login from "./pages/auth/Login";
 import Register from "./pages/auth/Register";
 import ForgotPassword from "./pages/auth/ForgotPassword";
 import ChangePassword from "./pages/auth/ChangePassword";
+import Dashboard from "./pages/dashboard/Dashboard";
 
 function App() {
 
@@ -42,6 +43,11 @@ function App() {
         <Route
           path="/change-password"
           element={<ChangePassword />}
+        />
+
+        <Route 
+           path="/dashboard" 
+           element={<Dashboard />} 
         />
 
       </Routes>

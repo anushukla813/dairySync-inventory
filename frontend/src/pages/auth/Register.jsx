@@ -2,34 +2,35 @@ import { useState } from "react";
 
 import "../../styles/Auth.css";
 
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 import {
   FaUser,
   FaEnvelope,
-  FaLock
+  FaLock,
+  FaPhone,
+  FaMapMarkerAlt,
+  FaUserTag
 } from "react-icons/fa";
 
-import {
-  registerUser
-} from "../../services/authService";
-
-import {
-  validateRegister
-} from "../../utils/validations";
+import { registerUser } from "../../services/authService";
 
 export default function Register() {
 
+  const navigate = useNavigate();
+
   const [formData, setFormData] = useState({
-    name: "",
+
+    fullName: "",
     email: "",
-    password: ""
+    password: "",
+    phone: "",
+    location: "",
+    role: ""
+
   });
 
   const [errors, setErrors] = useState({});
-
-  const [successMessage, setSuccessMessage] =
-    useState("");
 
   const handleChange = (e) => {
 
@@ -43,42 +44,41 @@ export default function Register() {
 
     e.preventDefault();
 
-    const validationErrors =
-      validateRegister(formData);
+    let newErrors = {};
 
-    setErrors(validationErrors);
+    if (!formData.fullName) {
+      newErrors.fullName = "Full name is required";
+    }
 
-    if (
-      Object.keys(validationErrors).length === 0
-    ) {
+    if (!formData.email) {
+      newErrors.email = "Email is required";
+    }
 
-      const result =
-        registerUser(formData);
+    if (!formData.password) {
+      newErrors.password = "Password is required";
+    }
 
-      if (!result.success) {
+    if (!formData.phone) {
+      newErrors.phone = "Phone number is required";
+    }
 
-        setErrors({
-          email: result.message
-        });
+    if (!formData.location) {
+      newErrors.location = "Location is required";
+    }
 
-        return;
-      }
+    if (!formData.role) {
+      newErrors.role = "Select role";
+    }
 
-      setSuccessMessage(
-        "Registration Successful"
-      );
+    setErrors(newErrors);
 
-      setFormData({
-        name: "",
-        email: "",
-        password: ""
-      });
+    if (Object.keys(newErrors).length === 0) {
 
-      setTimeout(() => {
+      registerUser(formData);
 
-        window.location.href = "/login";
+      alert("Registration Successful");
 
-      }, 1500);
+      navigate("/login");
     }
   };
 
@@ -95,15 +95,8 @@ export default function Register() {
         <h2>Create Account</h2>
 
         <p>
-          Register your DairySync account
+          Register as vendor or seller
         </p>
-
-        {
-          successMessage &&
-          <p className="success-text">
-            {successMessage}
-          </p>
-        }
 
         <form onSubmit={handleSubmit}>
 
@@ -113,20 +106,20 @@ export default function Register() {
 
             <input
               type="text"
-              name="name"
+              name="fullName"
               placeholder="Full Name"
-              value={formData.name}
+              value={formData.fullName}
               onChange={handleChange}
             />
 
-          </div>
+            {
+              errors.fullName &&
+              <p className="error-text">
+                {errors.fullName}
+              </p>
+            }
 
-          {
-            errors.name &&
-            <p className="error-text">
-              {errors.name}
-            </p>
-          }
+          </div>
 
           <div className="input-group">
 
@@ -140,14 +133,14 @@ export default function Register() {
               onChange={handleChange}
             />
 
-          </div>
+            {
+              errors.email &&
+              <p className="error-text">
+                {errors.email}
+              </p>
+            }
 
-          {
-            errors.email &&
-            <p className="error-text">
-              {errors.email}
-            </p>
-          }
+          </div>
 
           <div className="input-group">
 
@@ -161,14 +154,82 @@ export default function Register() {
               onChange={handleChange}
             />
 
+            {
+              errors.password &&
+              <p className="error-text">
+                {errors.password}
+              </p>
+            }
+
           </div>
 
-          {
-            errors.password &&
-            <p className="error-text">
-              {errors.password}
-            </p>
-          }
+          <div className="input-group">
+
+            <FaPhone className="input-icon" />
+
+            <input
+              type="text"
+              name="phone"
+              placeholder="Phone Number"
+              value={formData.phone}
+              onChange={handleChange}
+            />
+
+            {
+              errors.phone &&
+              <p className="error-text">
+                {errors.phone}
+              </p>
+            }
+
+          </div>
+
+          <div className="input-group">
+
+            <FaMapMarkerAlt className="input-icon" />
+
+            <input
+              type="text"
+              name="location"
+              placeholder="Location"
+              value={formData.location}
+              onChange={handleChange}
+            />
+
+            {
+              errors.location &&
+              <p className="error-text">
+                {errors.location}
+              </p>
+            }
+
+          </div>
+
+          <div className="input-group">
+
+            <FaUserTag className="input-icon" />
+
+            <select
+              name="role"
+              value={formData.role}
+              onChange={handleChange}
+              className="role-select"
+            >
+              <option value="">
+                Select Role
+              </option>
+
+              <option value="seller">
+                Seller
+              </option>
+
+              <option value="vendor">
+                Vendor
+              </option>
+
+            </select>
+
+          </div>
 
           <button type="submit">
             Register

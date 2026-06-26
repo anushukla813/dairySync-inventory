@@ -2,7 +2,7 @@ import { loginUser } from "../../services/authService";
 import { useState } from "react";
 import "../../styles/Auth.css";
 
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 import {
   FaEnvelope,
@@ -12,6 +12,8 @@ import {
 
 export default function Login() {
 
+  const navigate = useNavigate();
+  
   const [formData, setFormData] = useState({
   email: "",
   password: ""
@@ -59,9 +61,7 @@ const handleSubmit = (e) => {
       return;
     }
 
-    alert("Login Successful");
-
-    window.location.href = "/dashboard";
+    navigate("/dashboard");
   }
 };
 

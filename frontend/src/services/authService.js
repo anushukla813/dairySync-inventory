@@ -1,12 +1,14 @@
 export const registerUser = (userData) => {
-    const users = 
+
+    const users =
        JSON.parse(localStorage.getItem("users")) || [];
- 
+
     const existingUser = users.find(
         (user) => user.email === userData.email
     );
 
     if (existingUser){
+
         return{
             success: false,
             message: "User already exists"
@@ -34,11 +36,11 @@ export const loginUser = (email, password) => {
     const user = users.find(
         (u) =>
             u.email === email &&
-        u.password === password
+            u.password === password
     );
 
     if (!user){
-        
+
         return{
             success: false,
             message: "Invalid email or password"
@@ -52,10 +54,12 @@ export const loginUser = (email, password) => {
 
     return{
         success: true,
-        user
+        user,
+        role: user.role
     };
 };
 
 export const logoutUser = () => {
+
     localStorage.removeItem("loggedInUser");
 };

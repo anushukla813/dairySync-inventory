@@ -186,3 +186,31 @@
 
   font-weight: 600;
 }
+
+.role-select {
+
+  width: 100%;
+
+  padding: 15px 15px 15px 45px;
+
+  border-radius: 12px;
+
+  border: 1px solid #ddd;
+
+  outline: none;
+
+  font-size: 16px;
+
+  background: white;
+
+  appearance: none;
+
+  cursor: pointer;
+
+  color: #555;
+}
+
+.role-select:focus {
+
+  border-color: #198754;
+}
