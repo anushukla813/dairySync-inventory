@@ -1,38 +1,66 @@
 package com.dairysync.backend.dto.response;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
 
-@Data
-@Builder
-@NoArgsConstructor
-@AllArgsConstructor
-public class ApiResponse<T> {
 
+public class ApiResponse<T> {
     private boolean success;
     private String message;
     private T data;
     private LocalDateTime timestamp;
 
-    public static <T> ApiResponse<T> success(String message, T data) {
-        return ApiResponse.<T>builder()
-                .success(true)
-                .message(message)
-                .data(data)
-                .timestamp(LocalDateTime.now())
-                .build();
+    public ApiResponse(){}
+
+    public boolean isSuccess() {
+        return success;
+    }
+
+    public String getMessage() {
+        return message;
+    }
+
+    public T getData() {
+        return data;
+    }
+
+    public LocalDateTime getTimestamp() {
+        return timestamp;
+    }
+
+    public void setSuccess(boolean success) {
+        this.success = success;
+    }
+
+    public void setMessage(String message) {
+        this.message = message;
+    }
+
+    public void setData(T data) {
+        this.data = data;
+    }
+
+    public void setTimestamp(LocalDateTime timestamp) {
+        this.timestamp = timestamp;
+    }
+
+    public static <T> ApiResponse<T> success(
+            String message, T data) {
+        ApiResponse<T> res = new ApiResponse<>();
+        res.setSuccess(true);
+        res.setMessage(message);
+        res.setData(data);
+        res.setTimestamp(LocalDateTime.now());
+        return res;
     }
 
     public static <T> ApiResponse<T> error(String message) {
-        return ApiResponse.<T>builder()
-                .success(false)
-                .message(message)
-                .data(null)
-                .timestamp(LocalDateTime.now())
-                .build();
+        ApiResponse<T> res = new ApiResponse<>();
+        res.setSuccess(false);
+        res.setMessage(message);
+        res.setData(null);
+        res.setTimestamp(LocalDateTime.now());
+        return res;
     }
 }
+
