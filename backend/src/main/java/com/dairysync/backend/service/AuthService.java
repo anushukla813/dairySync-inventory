@@ -5,6 +5,6 @@ import com.dairysync.backend.dto.request.RegisterRequest;
 import com.dairysync.backend.dto.response.AuthResponse;
 
 public interface AuthService {
-    AuthResponse registerUser(RegisterRequest registerRequest);
-    AuthResponse loginUser(LoginRequest loginRequest);
+    AuthResponse register(RegisterRequest registerRequest);
+    AuthResponse login(LoginRequest loginRequest);
 }
