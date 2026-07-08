@@ -1,65 +1,60 @@
-export const registerUser = (userData) => {
+const API_URL = "http://localhost:8080/api/auth";
 
-    const users =
-       JSON.parse(localStorage.getItem("users")) || [];
+/* REGISTER */
 
-    const existingUser = users.find(
-        (user) => user.email === userData.email
-    );
+export const registerUser = async (userData) => {
 
-    if (existingUser){
+  const response = await fetch(
+    `${API_URL}/register`,
+    {
+      method: "POST",
 
-        return{
-            success: false,
-            message: "User already exists"
-        };
+      headers: {
+        "Content-Type": "application/json",
+      },
+
+      body: JSON.stringify(userData),
     }
+  );
 
-    users.push(userData);
+  const data = await response.json();
 
-    localStorage.setItem(
-        "users",
-        JSON.stringify(users)
+  if (!response.ok) {
+
+    throw new Error(
+      data.message || "Registration failed"
     );
+  }
 
-    return{
-        success: true,
-        message: "Registration successful"
-    };
+  return data;
 };
 
-export const loginUser = (email, password) => {
 
-    const users =
-       JSON.parse(localStorage.getItem("users")) || [];
+/* LOGIN */
 
-    const user = users.find(
-        (u) =>
-            u.email === email &&
-            u.password === password
-    );
+export const loginUser = async (loginData) => {
 
-    if (!user){
+  const response = await fetch(
+    `${API_URL}/login`,
+    {
+      method: "POST",
 
-        return{
-            success: false,
-            message: "Invalid email or password"
-        };
+      headers: {
+        "Content-Type": "application/json",
+      },
+
+      body: JSON.stringify(loginData),
     }
+  );
 
-    localStorage.setItem(
-        "loggedInUser",
-        JSON.stringify(user)
+  const data = await response.json();
+
+  if (!response.ok) {
+
+    throw new Error(
+      data.message || "Login failed"
     );
+  }
 
-    return{
-        success: true,
-        user,
-        role: user.role
-    };
-};
-
-export const logoutUser = () => {
-
-    localStorage.removeItem("loggedInUser");
+  return data;
 };

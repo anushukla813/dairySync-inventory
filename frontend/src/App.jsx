@@ -1,3 +1,6 @@
+import VendorSupply from "./pages/dashboard/VendorSupply"; 
+import VendorHistory from "./pages/dashboard/VendorHistory"; 
+import VendorProfile from "./pages/dashboard/VendorProfile";
 import {
   BrowserRouter,
   Routes,
@@ -10,7 +13,7 @@ import Login from "./pages/auth/Login";
 import Register from "./pages/auth/Register";
 import ForgotPassword from "./pages/auth/ForgotPassword";
 import ChangePassword from "./pages/auth/ChangePassword";
-import Dashboard from "./pages/dashboard/Dashboard";
+import VendorDashboard from "./pages/dashboard/VendorDashboard";
 
 function App() {
 
@@ -46,8 +49,23 @@ function App() {
         />
 
         <Route 
-           path="/dashboard" 
-           element={<Dashboard />} 
+           path="/vendor-dashboard" 
+           element={<VendorDashboard />} 
+        />
+
+        <Route
+          path="/vendor/supply"
+          element={<VendorSupply />}
+        />
+
+        <Route
+           path="/vendor/history"
+           element={<VendorHistory />}
+        />
+
+        <Route
+          path="/vendor/profile"
+          element={<VendorProfile />} 
         />
 
       </Routes>

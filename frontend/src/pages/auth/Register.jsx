@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-import "../../styles/Auth.css";
+import "../../styles/auth/Auth.css";
 
 import { Link, useNavigate } from "react-router-dom";
 
@@ -40,7 +40,7 @@ export default function Register() {
     });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
 
     e.preventDefault();
 
@@ -71,14 +71,22 @@ export default function Register() {
     }
 
     setErrors(newErrors);
-
-    if (Object.keys(newErrors).length === 0) {
-
-      registerUser(formData);
-
+    
+    if (Object.keys(newErrors).length > 0) {
+      return;
+    }
+    
+    try {
+      
+      const data = await registerUser(formData);
+      console.log(data);
       alert("Registration Successful");
-
       navigate("/login");
+    
+    } catch (error) {
+      
+      console.log(error);
+      alert(error.message || "Registration Failed");
     }
   };
 
@@ -219,11 +227,11 @@ export default function Register() {
                 Select Role
               </option>
 
-              <option value="seller">
+              <option value="ROLE_SELLER">
                 Seller
               </option>
 
-              <option value="vendor">
+              <option value="ROLE_VENDOR">
                 Vendor
               </option>
 

@@ -1,4 +1,4 @@
-import "../../styles/Auth.css";
+import "../../styles/auth/Auth.css";
 
 import {
   FaLock,

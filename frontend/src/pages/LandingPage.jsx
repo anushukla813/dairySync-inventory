@@ -23,7 +23,6 @@ export default function LandingPage() {
 
           <div className="nav-links">
 
-            <a href="#">Home</a>
             <a href="#">Features</a>
             <a href="#">About</a>
 

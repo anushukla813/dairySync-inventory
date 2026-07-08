@@ -1,6 +1,6 @@
 import { loginUser } from "../../services/authService";
 import { useState } from "react";
-import "../../styles/Auth.css";
+import "../../styles/auth/Auth.css";
 
 import { Link, useNavigate } from "react-router-dom";
 
@@ -29,7 +29,7 @@ const handleChange = (e) => {
   });
 };
 
-const handleSubmit = (e) => {
+const handleSubmit = async (e) => {
 
   e.preventDefault();
 
@@ -45,26 +45,52 @@ const handleSubmit = (e) => {
 
   setErrors(newErrors);
 
-  if (Object.keys(newErrors).length === 0) {
+  if (Object.keys(newErrors).length > 0) {
+    return;
+  }
 
-    const result = loginUser(
-      formData.email,
-      formData.password
+  try {
+
+    const data = await loginUser(formData);
+
+    console.log(data);
+
+    /* SAVE USER */
+
+    localStorage.setItem(
+      "loggedInUser",
+      JSON.stringify(data.data)
     );
 
-    if (!result.success) {
+    alert("Login Successful");
 
-      setErrors({
-        password: result.message
-      });
+    /* ROLE BASED REDIRECT */
 
-      return;
+    console.log("FULL DATA =", JSON.stringify(data, null, 2));
+    console.log("ROLE =", data.data.role);
+
+    if(data.data.role?.trim() === "ROLE_VENDOR"){
+      console.log("GOING TO VENDOR");
+      navigate("/vendor-dashboard");
+    }
+    else if(data.data.role?.trim() === "ROLE_SELLER"){
+      console.log("GOING TO SELLER");
+      navigate("/seller-dashboard");
+    }
+    else{
+      console.log("ROLE NOT MATCHING");
     }
 
-    navigate("/dashboard");
+  } catch (error) {
+
+    console.log(error);
+
+    setErrors({
+      password:
+        error.message || "Login Failed"
+    });
   }
 };
-
   return (
 
     <div className="auth-page">
