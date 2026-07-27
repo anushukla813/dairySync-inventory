@@ -31,7 +31,7 @@ public class Vendor {
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
-    private VendorStatus status;
+    private VendorStatus status =VendorStatus.ACTIVE;
 
     public Vendor(){
 
