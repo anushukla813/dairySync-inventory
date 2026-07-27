@@ -34,8 +34,8 @@ public class MilkSupply {
     @Column(name = "snf_percentage", precision = 5, scale = 2)
     private BigDecimal snfPercentage;
 
-    @Column(name = "rate_per_liter", precision = 10, scale = 2)
-    private BigDecimal ratePerLiter;
+    @Column(name = "price_per_liter", precision = 10, scale = 2)
+    private BigDecimal pricePerLiter;
 
 
     @Column(name = "supply_date", nullable = false)
@@ -50,9 +50,9 @@ public class MilkSupply {
 
     @Enumerated(EnumType.STRING)
     @Column(name = "verification_status", nullable = false)
-    private VerificationStatus verificationStatus = VerificationStatus.PENDING;
+    private VerificationStatus verificationStatus = VerificationStatus.Pending;
 
-    @Column(name = "total_amount", precision = 10, scale = 2)
+    @Column(name = "total_amount", nullable = false, precision = 10, scale = 2)
     private BigDecimal totalAmount;
 
     public  MilkSupply(){
@@ -107,12 +107,12 @@ public class MilkSupply {
         this.snfPercentage = snfPercentage;
     }
 
-    public BigDecimal getRatePerLiter() {
-        return ratePerLiter;
+    public BigDecimal getPricePerLiter() {
+        return pricePerLiter;
     }
 
-    public void setRatePerLiter(BigDecimal ratePerLiter) {
-        this.ratePerLiter = ratePerLiter;
+    public void setPricePerLiter(BigDecimal pricePerLiter) {
+        this.pricePerLiter = pricePerLiter;
     }
 
     public LocalDate getSupplyDate() {
@@ -157,8 +157,8 @@ public class MilkSupply {
     }
     public void calculateTotalAmount() {
 
-        if (quantity != null && ratePerLiter != null) {
-            this.totalAmount = quantity.multiply(ratePerLiter);
+        if (quantity != null && pricePerLiter != null) {
+            this.totalAmount = quantity.multiply(pricePerLiter);
         }
     }
 }

@@ -1,6 +1,6 @@
 package com.dairysync.backend.dto.response;
 
-import com.dairysync.backend.model.enums.PaymentStatus;
+
 import com.dairysync.backend.model.enums.Shift;
 import com.dairysync.backend.model.enums.VerificationStatus;
 
@@ -14,13 +14,13 @@ public class MilkSupplyResponse {
     private BigDecimal quantity;
     private BigDecimal fatPercentage;
     private BigDecimal snfPercentage;
-    private BigDecimal ratePerLiter;
+    private BigDecimal pricePerLiter;
     private LocalDate supplyDate;
     private LocalTime supplyTime;
     private Shift shift;
 
     private VerificationStatus verificationStatus;
-    private PaymentStatus paymentStatus;
+
     private BigDecimal totalAmount;
 
     public MilkSupplyResponse(){
@@ -62,12 +62,13 @@ public class MilkSupplyResponse {
         this.snfPercentage = snfPercentage;
     }
 
-    public BigDecimal getRatePerLiter() {
-        return ratePerLiter;
+
+    public BigDecimal getPricePerLiter() {
+        return pricePerLiter;
     }
 
-    public void setRatePerLiter(BigDecimal ratePerLiter) {
-        this.ratePerLiter = ratePerLiter;
+    public void setPricePerLiter(BigDecimal pricePerLiter) {
+        this.pricePerLiter = pricePerLiter;
     }
 
     public void setQuantity(BigDecimal quantity) {
@@ -99,14 +100,6 @@ public class MilkSupplyResponse {
         this.shift = shift;
     }
 
-
-    public PaymentStatus getPaymentStatus() {
-        return paymentStatus;
-    }
-
-    public void setPaymentStatus(PaymentStatus paymentStatus) {
-        this.paymentStatus = paymentStatus;
-    }
 
 
     public VerificationStatus getVerificationStatus() {
