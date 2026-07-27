@@ -18,8 +18,8 @@ public class MilkType {
     private String milkName;
 
 
-    @Column(name = "base_price", nullable = false, precision = 10, scale = 2)
-    private BigDecimal basePrice;
+    @Column(name = "price_per_liter")
+    private BigDecimal pricePerLiter;
 
 
     @OneToMany(mappedBy = "milkType", fetch = FetchType.LAZY)
@@ -45,12 +45,12 @@ public class MilkType {
         this.milkName = milkName;
     }
 
-    public BigDecimal getBasePrice() {
-        return basePrice;
+    public BigDecimal getPricePerLiter() {
+        return pricePerLiter;
     }
 
-    public void setBasePrice(BigDecimal basePrice) {
-        this.basePrice = basePrice;
+    public void setPricePerLiter(BigDecimal pricePerLiter) {
+        this.pricePerLiter = pricePerLiter;
     }
 
     public List<MilkSupply> getMilkSupplies() {
