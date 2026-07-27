@@ -43,6 +43,7 @@ public class AuthServiceImpl implements AuthService {
         }
 
         User user = new User();
+
         user.setFullName(registerRequest.getFullName());
         user.setEmail(registerRequest.getEmail());
         user.setPassword(passwordEncoder.encode(registerRequest.getPassword()));
@@ -59,8 +60,9 @@ public class AuthServiceImpl implements AuthService {
         );
 
         return AuthResponse.builder()
-                .email(savedUser.getEmail())
+                .userId(savedUser.getId())
                 .fullName(savedUser.getFullName())
+                .email(savedUser.getEmail())
                 .role(savedUser.getRole().name())
                 .token(token)
                 .message("Registration successful!")
@@ -87,8 +89,9 @@ public class AuthServiceImpl implements AuthService {
         );
 
         return AuthResponse.builder()
-                .email(user.getEmail())
+                .userId(user.getId())
                 .fullName(user.getFullName())
+                .email(user.getEmail())
                 .role(user.getRole().name())
                 .token(token)
                 .message("Login successful!")
