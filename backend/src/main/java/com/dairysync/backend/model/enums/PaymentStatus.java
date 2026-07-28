@@ -1,6 +1,6 @@
 package com.dairysync.backend.model.enums;
 
 public enum PaymentStatus {
-    PENDING,
-    PAID
+    Pending,
+    Paid
 }
