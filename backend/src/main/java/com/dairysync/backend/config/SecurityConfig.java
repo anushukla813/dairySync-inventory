@@ -28,6 +28,10 @@ public class SecurityConfig {
                                 SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/auth/**").permitAll()
+                        .requestMatchers("/vendors/**").permitAll()
+                        .requestMatchers("/milk-types/**").permitAll()
+                        .requestMatchers("/milk-supplies/**").permitAll()
+                        .requestMatchers("/payments/**").permitAll()
                         .anyRequest().authenticated()
                 )
                 .addFilterBefore(jwtAuthFilter,
