@@ -1,0 +1,540 @@
+/* =====================================
+   VENDOR DASHBOARD
+===================================== */
+
+.vendor-dashboard{
+
+
+    min-height:100vh;
+
+    padding:30px 35px;
+
+    background:#24213B;
+
+
+}
+
+
+/* =====================================
+   WELCOME SECTION
+===================================== */
+
+
+.dashboard-welcome{
+
+    text-align:left;
+
+    margin-top:-50px;
+
+    margin-bottom:30px;
+
+}
+
+
+
+/* Greeting */
+
+.dashboard-welcome h1{
+
+    margin:0;
+
+    color:#ffffff;
+
+    font-size:32px;
+
+    font-weight:700;
+
+    letter-spacing:.3px;
+
+}
+
+
+
+/* Subtitle */
+
+.dashboard-welcome p{
+
+    margin-top:8px;
+
+    margin-bottom:0;
+
+    color:#C7C3E0;
+
+    font-size:15px;
+
+    font-weight:400;
+
+}
+
+/* =====================================
+   DASHBOARD CARDS
+===================================== */
+
+
+.dashboard-cards{
+
+    display:grid;
+
+    grid-template-columns:repeat(4,1fr);
+
+    gap:25px;
+
+}
+
+
+
+.dashboard-card{
+
+    background:white;
+
+    border-radius:20px;
+
+    padding:25px;
+
+    display:flex;
+
+    align-items:center;
+
+    gap:20px;
+
+    box-shadow:0 10px 25px rgba(0,0,0,0.06);
+
+    transition:.3s;
+
+}
+
+
+
+.dashboard-card:hover{
+
+    transform:translateY(-6px);
+
+    box-shadow:0 15px 30px rgba(0,0,0,0.12);
+
+}
+
+
+
+/* ICON */
+
+
+.card-icon{
+
+    width:55px;
+
+    height:55px;
+
+    border-radius:16px;
+
+    background:#7c5cfc;
+
+    color:white;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    font-size:22px;
+
+}
+
+
+
+/* CONTENT */
+
+
+.card-content h3{
+
+    font-size:14px;
+
+    color:#777;
+
+    margin-bottom:8px;
+
+}
+
+
+
+.card-content h2{
+
+    font-size:24px;
+
+    color:#222;
+
+    margin-bottom:5px;
+
+}
+
+
+
+.card-content p{
+
+    font-size:12px;
+
+    color:#999;
+
+}
+
+
+
+/* =====================================
+   RESPONSIVE
+===================================== */
+
+
+@media(max-width:1200px){
+
+    .dashboard-cards{
+
+        grid-template-columns:repeat(2,1fr);
+
+    }
+
+}
+
+
+
+@media(max-width:600px){
+
+    .dashboard-cards{
+
+        grid-template-columns:1fr;
+
+    }
+
+
+    .vendor-dashboard{
+
+        padding:15px;
+
+    }
+
+}
+
+/* =====================================
+   DASHBOARD HEADER
+===================================== */
+
+.dashboard-header{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    margin-bottom:35px;
+
+}
+
+.dashboard-text h1{
+
+    font-size:30px;
+
+    font-weight:700;
+
+    color:#222;
+
+}
+
+.dashboard-text p{
+
+    margin-top:8px;
+
+    color:#777;
+
+    font-size:15px;
+
+}
+
+.dashboard-action{
+
+    display:flex;
+
+    gap:15px;
+
+}
+
+.refresh-btn{
+
+    border:none;
+
+    background:#7C5CFC;
+
+    color:white;
+
+    padding:12px 22px;
+
+    border-radius:12px;
+
+    cursor:pointer;
+
+    font-weight:600;
+
+    transition:.3s;
+
+}
+
+.refresh-btn:hover{
+
+    background:#6949F5;
+
+}
+
+/* =====================================
+   RECENT ACTIVITY
+===================================== */
+
+.activity-list{
+
+    display:flex;
+
+    flex-direction:column;
+
+    gap:18px;
+
+}
+
+.activity-item{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    padding-bottom:12px;
+
+    border-bottom:1px solid #eee;
+
+}
+
+.activity-item:last-child{
+
+    border-bottom:none;
+
+}
+
+.activity-name{
+
+    font-weight:600;
+
+    color:#333;
+
+}
+
+.activity-date{
+
+    color:#888;
+
+    font-size:13px;
+
+}
+
+.activity-status{
+
+    padding:6px 12px;
+
+    border-radius:20px;
+
+    font-size:12px;
+
+    font-weight:600;
+
+}
+
+.completed{
+
+    background:#D1FAE5;
+
+    color:#059669;
+
+}
+
+.pending{
+
+    background:#FEF3C7;
+
+    color:#D97706;
+
+}
+
+.cancelled{
+
+    background:#FEE2E2;
+
+    color:#DC2626;
+
+}
+
+/* =====================================
+   RESPONSIVE
+===================================== */
+
+@media(max-width:992px){
+
+    .dashboard-analytics{
+
+        grid-template-columns:1fr;
+
+    }
+
+}
+
+/* ==========================================
+   PURPLE CARDS
+========================================== */
+
+.welcome-small{
+
+    display:inline-block;
+
+    color:#7C5CFC;
+
+    font-weight:600;
+
+    margin-bottom:10px;
+
+    letter-spacing:.5px;
+
+}
+
+.dashboard-cards{
+
+    margin-top:30px;
+
+}
+
+.dashboard-card{
+
+    position:relative;
+
+    overflow:hidden;
+
+}
+
+.card-top{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    margin-bottom:25px;
+
+}
+
+.dashboard-card h2{
+
+    font-size:32px;
+
+    color:#222;
+
+    font-weight:700;
+
+}
+
+.dashboard-card h3{
+
+    margin-top:8px;
+
+    color:#777;
+
+    font-size:15px;
+
+}
+
+.dashboard-card.purple{
+
+    border-top:5px solid #7C5CFC;
+
+}
+
+.dashboard-card.blue{
+
+    border-top:5px solid #37B9F1;
+
+}
+
+.dashboard-card.orange{
+
+    border-top:5px solid #FF9800;
+
+}
+
+.dashboard-card.green{
+
+    border-top:5px solid #2ECC71;
+
+}
+
+.card-icon{
+
+    width:58px;
+
+    height:58px;
+
+    border-radius:18px;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    color:white;
+
+    font-size:22px;
+
+}
+
+.dashboard-card.purple .card-icon{
+
+    background:#7C5CFC;
+
+}
+
+.dashboard-card.blue .card-icon{
+
+    background:#37B9F1;
+
+}
+
+.dashboard-card.orange .card-icon{
+
+    background:#FF9800;
+
+}
+
+.dashboard-card.green .card-icon{
+
+    background:#2ECC71;
+
+}
+
+.dashboard-placeholder{
+
+    margin-top:35px;
+
+    height:420px;
+
+    border-radius:22px;
+
+    background:white;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    box-shadow:0 10px 25px rgba(0,0,0,.06);
+
+    color:#999;
+
+    font-size:20px;
+
+}

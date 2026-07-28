@@ -1,0 +1,48 @@
+/* ===========================================
+   VENDOR LAYOUT
+=========================================== */
+
+
+.vendor-layout{
+
+    display:flex;
+
+    min-height:100vh;
+
+    background:#24213B;
+
+}
+
+
+
+/* CONTENT AREA */
+
+.vendor-content{
+
+    margin-left:270px;
+
+    flex:1;
+
+    min-height:100vh;
+
+    background:#24213B;
+
+    display:flex;
+
+    flex-direction:column;
+
+}
+
+
+
+/* PAGE AREA */
+
+.vendor-page{
+
+    flex:1;
+
+    padding:30px 35px;
+
+    background:#24213B;
+
+}

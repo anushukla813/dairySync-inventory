@@ -1,0 +1,577 @@
+/* =====================================================
+   VENDOR PROFILE PAGE
+===================================================== */
+
+.profile-page{
+
+    min-height:100vh;
+
+    background:#24213B;
+
+    padding:30px;
+
+}
+
+
+/* =====================================================
+   PROFILE CARD
+===================================================== */
+
+.profile-card{
+
+    max-width:1250px;
+
+    margin:auto;
+
+    background:#ffffff;
+
+    border-radius:22px;
+
+    overflow:hidden;
+
+    box-shadow:
+        0 20px 45px rgba(0,0,0,.12),
+        0 10px 25px rgba(124,92,252,.08);
+
+}
+
+
+/* =====================================================
+   PROFILE HEADER
+===================================================== */
+
+.profile-header{
+
+    background:linear-gradient(
+        135deg,
+        #F8F6FF 0%,
+        #FFFFFF 100%
+    );
+
+    display:flex;
+
+    flex-direction:column;
+
+    align-items:center;
+
+    justify-content:center;
+
+    padding:18px 25px;
+
+    border-bottom:1px solid #ECEAF8;
+
+}
+
+
+/* =====================================================
+   PROFILE ICON
+===================================================== */
+
+.profile-avatar{
+
+    width:72px;
+
+    height:72px;
+
+    border-radius:50%;
+
+    background:#ffffff;
+
+    color:#7C5CFC;
+
+    font-size:58px;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    box-shadow:
+        0 10px 30px rgba(124,92,252,.20);
+
+    transition:.30s;
+
+}
+
+
+.profile-avatar:hover{
+
+    transform:translateY(-3px);
+
+}
+
+
+/* =====================================================
+   PROFILE DESCRIPTION
+===================================================== */
+
+.profile-header p{
+
+    margin-top:18px;
+
+    margin-bottom:0;
+
+    font-size:15px;
+
+    color:#77749A;
+
+    text-align:center;
+
+    line-height:1.6;
+
+}
+
+
+/* =====================================================
+   FORM CONTAINER
+===================================================== */
+
+.profile-section{
+
+    padding:28px 35px;
+
+}
+
+
+/* =====================================================
+   SECTION TITLE
+===================================================== */
+
+.profile-section h2{
+
+    margin:0 0 24px;
+
+    font-size:20px;
+
+    font-weight:700;
+
+    color:#2B244D;
+
+    padding-bottom:12px;
+
+    border-bottom:2px solid #F2F0FB;
+
+}
+/* =====================================================
+   PROFILE FORM LAYOUT
+===================================================== */
+
+.profile-row{
+
+    display:grid;
+
+    grid-template-columns:1fr 1fr;
+
+    column-gap:30px;
+
+    row-gap:16px;
+
+    margin-bottom:16px;
+
+}
+
+
+/* =====================================================
+   FIELD
+===================================================== */
+
+.profile-field{
+
+    display:grid;
+
+    grid-template-columns:170px 1fr;
+
+    align-items:center;
+
+    column-gap:14px;
+
+}
+
+
+.full-width{
+
+    grid-column:1/-1;
+
+    display:grid;
+
+    grid-template-columns:120px 1fr;
+
+    column-gap:14px;
+
+    align-items:flex-start;
+
+}
+
+
+/* =====================================================
+   LABEL
+===================================================== */
+
+.profile-field label{
+
+    font-size:14px;
+
+    font-weight:600;
+
+    color:#44415D;
+
+    white-space:nowrap;
+
+}
+
+
+/* =====================================================
+   INPUT
+===================================================== */
+
+.profile-field input,
+
+.profile-field textarea{
+
+    width:100%;
+
+    padding:12px 16px;
+
+    font-size:14px;
+
+    font-family:inherit;
+
+    border:1px solid #E3E1F2;
+
+    border-radius:12px;
+
+    background:#FAFAFD;
+
+    color:#2B244D;
+
+    outline:none;
+
+    transition:.30s;
+
+}
+
+
+/* =====================================================
+   TEXTAREA
+===================================================== */
+
+.profile-field textarea{
+
+    resize:vertical;
+
+    min-height:90px;
+
+}
+
+
+/* =====================================================
+   PLACEHOLDER
+===================================================== */
+
+.profile-field input::placeholder,
+
+.profile-field textarea::placeholder{
+
+    color:#A5A1BD;
+
+}
+
+
+/* =====================================================
+   HOVER
+===================================================== */
+
+.profile-field input:hover,
+
+.profile-field textarea:hover{
+
+    border-color:#BCAEFF;
+
+}
+
+
+/* =====================================================
+   FOCUS
+===================================================== */
+
+.profile-field input:focus,
+
+.profile-field textarea:focus{
+
+    background:#ffffff;
+
+    border-color:#7C5CFC;
+
+    box-shadow:0 0 0 4px rgba(124,92,252,.12);
+
+}
+/* =====================================================
+   PROFILE ACTIONS
+===================================================== */
+
+.profile-actions{
+
+    display:flex;
+
+    justify-content:flex-end;
+
+    align-items:center;
+
+    gap:15px;
+
+    padding:25px 35px;
+
+    border-top:1px solid #ECEAF8;
+
+    background:#FCFCFF;
+
+}
+
+
+/* =====================================================
+   BUTTONS
+===================================================== */
+
+.cancel-btn{
+
+    min-width:130px;
+
+    padding:12px 22px;
+
+    border:none;
+
+    border-radius:12px;
+
+    background:#EEF0F6;
+
+    color:#555;
+
+    font-size:14px;
+
+    font-weight:600;
+
+    cursor:pointer;
+
+    transition:.30s;
+
+}
+
+
+.cancel-btn:hover{
+
+    background:#DFE3EC;
+
+    transform:translateY(-2px);
+
+}
+
+
+.save-btn{
+
+    min-width:160px;
+
+    padding:12px 24px;
+
+    border:none;
+
+    border-radius:12px;
+
+    background:#7C5CFC;
+
+    color:#fff;
+
+    font-size:14px;
+
+    font-weight:600;
+
+    cursor:pointer;
+
+    transition:.30s;
+
+    box-shadow:0 8px 22px rgba(124,92,252,.25);
+
+}
+
+
+.save-btn:hover{
+
+    background:#6A49F7;
+
+    transform:translateY(-2px);
+
+    box-shadow:0 12px 28px rgba(124,92,252,.35);
+
+}
+
+
+.save-btn:active,
+
+.cancel-btn:active{
+
+    transform:scale(.98);
+
+}
+
+
+/* =====================================================
+   CARD ANIMATION
+===================================================== */
+
+.profile-card{
+
+    animation:fadeUp .45s ease;
+
+}
+
+
+@keyframes fadeUp{
+
+    from{
+
+        opacity:0;
+
+        transform:translateY(20px);
+
+    }
+
+    to{
+
+        opacity:1;
+
+        transform:translateY(0);
+
+    }
+
+}
+
+
+/* =====================================================
+   RESPONSIVE
+===================================================== */
+
+@media(max-width:1100px){
+
+    .profile-row{
+
+        grid-template-columns:1fr;
+
+    }
+
+    .profile-field,
+
+    .full-width{
+
+        grid-template-columns:140px 1fr;
+
+    }
+
+}
+
+
+@media(max-width:768px){
+
+    .profile-page{
+
+        padding:15px;
+
+    }
+
+    .profile-section{
+
+        padding:22px;
+
+    }
+
+    .profile-field,
+
+    .full-width{
+
+        grid-template-columns:1fr;
+
+        gap:8px;
+
+    }
+
+    .profile-actions{
+
+        flex-direction:column;
+
+    }
+
+    .save-btn,
+
+    .cancel-btn{
+
+        width:100%;
+
+    }
+
+    .profile-avatar{
+
+        width:75px;
+
+        height:75px;
+
+        font-size:46px;
+
+    }
+
+}
+
+
+@media(max-width:480px){
+
+    .profile-header{
+
+        padding:22px;
+
+    }
+
+    .profile-section{
+
+        padding:18px;
+
+    }
+
+    .profile-section h2{
+
+        font-size:18px;
+
+    }
+
+}
+/* ==========================================
+   LABEL ICON
+========================================== */
+
+.profile-field label{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:10px;
+
+    font-size:14px;
+
+    font-weight:600;
+
+    color:#44415D;
+
+    white-space:nowrap;
+
+}
+
+
+.label-icon{
+
+    color:#7C5CFC !important;
+
+    font-size:16px;
+
+    min-width:18px;
+
+    flex-shrink:0;
+
+}

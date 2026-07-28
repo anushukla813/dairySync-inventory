@@ -1,0 +1,454 @@
+/* ==========================================================
+   PAYMENT PAGE
+========================================================== */
+.payment-page{
+
+    min-height:100vh;
+
+    background:#24213B;
+
+    padding:30px;
+
+}
+
+/* ==========================================================
+   MAIN CONTAINER
+========================================================== */
+.payment-container{
+
+    max-width:1250px;
+
+    margin:auto;
+
+    background:#ffffff;
+
+    border-radius:22px;
+
+    overflow:hidden;
+
+    box-shadow:
+    0 20px 45px rgba(0,0,0,.12),
+    0 10px 25px rgba(124,92,252,.08);
+
+}
+
+/* ==========================================================
+   HEADER
+========================================================== */
+.payment-header{
+
+    background:linear-gradient(
+        135deg,
+        #F8F6FF,
+        #FFFFFF
+    );
+
+
+    padding:28px 35px;
+
+
+    border-bottom:1px solid #ECEAF8;
+
+}
+
+.payment-header h1{
+
+
+    margin:0;
+
+    font-size:28px;
+
+    font-weight:700;
+
+    color:#2B244D;
+
+
+}
+
+.payment-header p{
+
+
+    margin-top:8px;
+
+    color:#7B7695;
+
+    font-size:15px;
+
+
+}
+
+/* ==========================================================
+   SUMMARY SECTION
+========================================================== */
+
+.payment-summary{
+
+
+    display:grid;
+
+    grid-template-columns:
+    repeat(4,1fr);
+
+    gap:20px;
+
+    padding:30px 35px;
+
+
+}
+
+.payment-card{
+
+
+    background:#F8F6FF;
+
+
+    border-radius:18px;
+
+
+    padding:22px;
+
+
+    display:flex;
+
+
+    align-items:center;
+
+
+    gap:18px;
+
+
+    transition:.3s;
+
+
+}
+
+.payment-card:hover{
+
+
+    transform:translateY(-5px);
+
+    box-shadow:
+    0 10px 25px rgba(124,92,252,.15);
+
+
+}
+
+.payment-icon{
+
+
+    width:45px;
+
+    height:45px;
+
+
+    padding:12px;
+
+
+    border-radius:14px;
+
+
+    background:#7C5CFC;
+
+
+    color:white;
+
+
+}
+
+.payment-card h3{
+
+
+    margin:0;
+
+
+    font-size:14px;
+
+
+    color:#7B7695;
+
+
+    font-weight:500;
+
+
+}
+
+.payment-card span{
+
+
+    display:block;
+
+
+    margin-top:6px;
+
+
+    font-size:22px;
+
+
+    font-weight:700;
+
+
+    color:#2B244D;
+
+
+}
+/* ==========================================================
+   PAYMENT TABLE
+========================================================== */
+
+
+.payment-table-container{
+
+    padding:0 35px 35px;
+
+    overflow-x:auto;
+
+}
+
+
+
+.payment-table-container table{
+
+    width:100%;
+
+    border-collapse:collapse;
+
+    background:white;
+
+    border-radius:16px;
+
+    overflow:hidden;
+
+}
+
+
+
+.payment-table-container th{
+
+
+    text-align:left;
+
+
+    padding:16px;
+
+
+    background:#F8F6FF;
+
+
+    color:#2B244D;
+
+
+    font-size:14px;
+
+
+    font-weight:600;
+
+
+}
+
+
+
+.payment-table-container td{
+
+
+    padding:16px;
+
+
+    border-bottom:1px solid #ECEAF8;
+
+
+    color:#55516F;
+
+
+    font-size:14px;
+
+
+}
+
+
+
+.payment-table-container tr:last-child td{
+
+
+    border-bottom:none;
+
+
+}
+
+
+
+.payment-table-container tbody tr{
+
+
+    transition:.3s;
+
+
+}
+
+
+
+.payment-table-container tbody tr:hover{
+
+
+    background:#FAF9FF;
+
+
+}
+
+
+
+
+
+/* ==========================================================
+   PAYMENT STATUS
+========================================================== */
+
+
+.payment-status{
+
+
+    padding:6px 14px;
+
+
+    border-radius:20px;
+
+
+    font-size:13px;
+
+
+    font-weight:600;
+
+
+    display:inline-block;
+
+
+}
+
+
+
+.payment-status.completed{
+
+
+    background:#E8F8EE;
+
+
+    color:#1B8A46;
+
+
+}
+
+
+
+.payment-status.pending{
+
+
+    background:#FFF4E5;
+
+
+    color:#D97706;
+
+
+}
+
+
+
+
+
+/* ==========================================================
+   EMPTY STATE
+========================================================== */
+
+
+.empty-payment{
+
+
+    text-align:center;
+
+
+    padding:40px !important;
+
+
+    color:#8A86A3 !important;
+
+
+    font-size:15px;
+
+
+}
+
+
+
+
+
+/* ==========================================================
+   RESPONSIVE
+========================================================== */
+
+
+@media(max-width:1100px){
+
+
+    .payment-summary{
+
+
+        grid-template-columns:
+        repeat(2,1fr);
+
+
+    }
+
+
+}
+
+
+
+
+@media(max-width:650px){
+
+
+    .payment-page{
+
+
+        padding:15px;
+
+
+    }
+
+
+
+    .payment-header{
+
+
+        padding:22px;
+
+
+    }
+
+    .payment-header h1{
+
+
+        font-size:24px;
+
+
+    }
+
+    .payment-summary{
+
+
+        grid-template-columns:1fr;
+
+
+        padding:20px;
+
+
+    }
+
+    .payment-table-container{
+
+
+        padding:0 20px 20px;
+
+
+    }
+
+
+}

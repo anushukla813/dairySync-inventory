@@ -1,7 +1,7 @@
 import { loginUser } from "../../services/authService";
 import { useState } from "react";
 import "../../styles/auth/Auth.css";
-
+import { getVendorByUserId } from "../../services/vendorService";
 import { Link, useNavigate } from "react-router-dom";
 
 import {
@@ -49,47 +49,156 @@ const handleSubmit = async (e) => {
     return;
   }
 
+
   try {
 
     const data = await loginUser(formData);
 
-    console.log(data);
+    console.log("LOGIN RESPONSE:", data);
 
-    /* SAVE USER */
+
+    let user = data.data;
+
+
+    /*
+      FIRST SAVE LOGIN DATA
+      because vendor API needs JWT token
+    */
 
     localStorage.setItem(
       "loggedInUser",
-      JSON.stringify(data.data)
+      JSON.stringify(user)
     );
+
+
+    /*
+      FETCH VENDOR PROFILE
+      ONLY FOR VENDOR ROLE
+    */
+
+    if(user.role?.trim() === "ROLE_VENDOR"){
+
+      try {
+
+        const vendor =
+          await getVendorByUserId(user.userId);
+
+
+        user = {
+          ...user,
+          vendorId: vendor.vendorId
+        };
+
+
+        /*
+          Update local storage
+          after adding vendorId
+        */
+
+        localStorage.setItem(
+          "loggedInUser",
+          JSON.stringify(user)
+        );
+
+
+        console.log(
+          "Vendor ID Added:",
+          vendor.vendorId
+        );
+
+
+      }
+      catch(vendorError){
+
+        console.log(
+          "Vendor Fetch Error:",
+          vendorError
+        );
+
+
+        /*
+          Do not block login
+          if vendor profile missing
+        */
+
+        user = {
+          ...user,
+          vendorId:null
+        };
+
+
+        localStorage.setItem(
+          "loggedInUser",
+          JSON.stringify(user)
+        );
+
+      }
+
+    }
+
 
     alert("Login Successful");
 
-    /* ROLE BASED REDIRECT */
 
-    console.log("FULL DATA =", JSON.stringify(data, null, 2));
-    console.log("ROLE =", data.data.role);
+    console.log(
+      "FINAL USER DATA:",
+      JSON.parse(
+        localStorage.getItem("loggedInUser")
+      )
+    );
 
-    if(data.data.role?.trim() === "ROLE_VENDOR"){
-      console.log("GOING TO VENDOR");
-      navigate("/vendor-dashboard");
+
+
+    /*
+      ROLE BASED REDIRECT
+    */
+
+    if(user.role?.trim() === "ROLE_VENDOR"){
+
+      console.log(
+        "GOING TO VENDOR"
+      );
+
+      navigate("/vendor/dashboard");
+
     }
-    else if(data.data.role?.trim() === "ROLE_SELLER"){
-      console.log("GOING TO SELLER");
-      navigate("/seller-dashboard");
+    else if(user.role?.trim() === "ROLE_SELLER"){
+
+      console.log(
+        "GOING TO SELLER"
+      );
+
+      navigate("/seller/dashboard");
+
     }
     else{
-      console.log("ROLE NOT MATCHING");
+
+      console.log(
+        "ROLE NOT MATCHING"
+      );
+
     }
 
-  } catch (error) {
 
-    console.log(error);
+  } 
+  catch(error){
+
+
+    console.log(
+      "LOGIN ERROR:",
+      error
+    );
+
 
     setErrors({
+
       password:
-        error.message || "Login Failed"
+      error.message || "Login Failed"
+
     });
+
   }
+
 };
   return (
 

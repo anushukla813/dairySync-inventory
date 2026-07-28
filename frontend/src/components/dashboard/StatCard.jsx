@@ -1,30 +1,20 @@
-import "../../styles/dashboard/Dashboard.css";
+import React from 'react';
 
-export default function StatCard({
-    title,
-    value,
-    icon,
-    color
-}) {
+const StatCard = ({ title, value, badge, image, alt }) => {
+  return (
+    <div className="stat-card">
+      <div className="stat-card-badge-container">
+        <span className="stat-badge">{badge}</span>
+      </div>
+      <div className="stat-card-img-box">
+        <img src={image} alt={alt || title} className="stat-card-img" />
+      </div>
+      <div className="stat-card-info">
+        <span className="stat-title">{title}</span>
+        <h2 className="stat-value">{value}</h2>
+      </div>
+    </div>
+  );
+};
 
-return (
-
-<div className="dashboard-card">
-
-<div
-className="card-icon"
-style={{
-background: color
-}}
->
-{icon}
-</div>
-
-<h3>{title}</h3>
-
-<p>{value}</p>
-
-</div>
-
-);
-}
+export default StatCard;
