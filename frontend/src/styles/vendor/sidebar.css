@@ -1,168 +1,265 @@
 /* ===========================================
-   VENDOR SIDEBAR
+   VENDOR SIDEBAR - DAIRYSYNC GREEN THEME
 =========================================== */
 
+
 .vendor-sidebar {
+
     position: fixed;
-    top: 0;
-    left: 0;
 
-    width: 270px;
-    height: 100vh;
+    top:0;
+    left:0;
 
-    background: #24213B;
+    width:270px;
 
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
+    height:100vh;
 
-    padding: 25px 20px;
 
-    box-shadow: 5px 0 25px rgba(0,0,0,.20);
+    background:
+    linear-gradient(
+        180deg,
+        #198754,
+        #064E3B
+    );
 
-    z-index: 1000;
+
+    display:flex;
+
+    flex-direction:column;
+
+    justify-content:space-between;
+
+
+    padding:25px 20px;
+
+
+    box-shadow:
+    5px 0 25px rgba(0,0,0,.20);
+
+
+    z-index:1000;
+
 }
+
+
 
 /* ===========================================
    TOP
 =========================================== */
 
+
 .sidebar-top{
+
     display:flex;
+
     flex-direction:column;
+
 }
+
+
 
 /* ===========================================
    LOGO
 =========================================== */
 
+
 .logo-wrapper{
+
 
     display:flex;
 
     align-items:center;
 
+
     gap:15px;
+
 
     margin-bottom:45px;
 
 }
 
+
+
 .logo-image{
+
 
     width:58px;
 
     height:58px;
 
+
     border-radius:50%;
+
 
     object-fit:cover;
 
+
     background:white;
+
 
     padding:4px;
 
-    border:3px solid rgba(255,255,255,.15);
+
+    border:
+
+    3px solid rgba(255,255,255,.25);
 
 }
 
+
+
 .logo-text h2{
+
 
     color:white;
 
+
     font-size:22px;
 
+
     font-weight:700;
+
 
     margin:0;
 
 }
 
+
+
 .logo-text p{
 
-    color:#BDB7DA;
+
+    color:#DCFCE7;
+
 
     font-size:13px;
+
 
     margin-top:2px;
 
 }
 
+
+
 /* ===========================================
    MENU
 =========================================== */
 
+
 .sidebar-menu{
+
 
     display:flex;
 
+
     flex-direction:column;
+
 
     gap:10px;
 
 }
 
+
+
 .menu-item{
+
 
     display:flex;
 
+
     align-items:center;
+
 
     gap:15px;
 
+
     padding:14px 18px;
 
-    color:#C9C7D8;
+
+    color:#DCFCE7;
+
 
     text-decoration:none;
 
+
     border-radius:14px;
+
 
     transition:.25s;
 
+
     font-size:15px;
+
 
     font-weight:500;
 
 }
 
+
+
 .menu-icon{
+
 
     font-size:18px;
 
+
     display:flex;
 
+
     align-items:center;
+
 
     justify-content:center;
 
 }
 
+
+
 /* Hover */
+
 
 .menu-item:hover{
 
-    background:#343053;
+
+    background:
+
+    rgba(255,255,255,.15);
+
 
     color:white;
 
+
 }
+
+
 
 /* Active */
 
+
 .menu-item.active{
 
-    background:#7C5CFC;
 
-    color:white;
+    background:white;
 
-    box-shadow:0 8px 18px rgba(124,92,252,.35);
+
+    color:#198754;
+
+
+    font-weight:700;
+
+
+    box-shadow:
+
+    0 8px 18px rgba(0,0,0,.18);
 
 }
+
+
 
 /* ===========================================
    BOTTOM
 =========================================== */
+
 
 .sidebar-bottom{
 
@@ -170,65 +267,107 @@
 
 }
 
+
+
 /* ===========================================
    LOGOUT
 =========================================== */
 
+
 .logout-button{
+
 
     width:100%;
 
+
     height:52px;
+
 
     border:none;
 
+
     outline:none;
+
 
     border-radius:14px;
 
-    background:#FF5D73;
+
+    background:
+
+    linear-gradient(
+        135deg,
+        #20C997,
+        #198754
+    );
+
 
     color:white;
 
+
     font-size:15px;
+
 
     font-weight:600;
 
+
     cursor:pointer;
+
 
     display:flex;
 
+
     align-items:center;
+
 
     justify-content:center;
 
+
     gap:12px;
+
 
     transition:.25s;
 
 }
 
+
+
 .logout-button:hover{
 
-    background:#ff4560;
+
+    background:
+
+    linear-gradient(
+        135deg,
+        #198754,
+        #146C43
+    );
+
 
     transform:translateY(-2px);
 
 }
 
+
+
 /* ===========================================
    SCROLLBAR
 =========================================== */
 
+
 .vendor-sidebar::-webkit-scrollbar{
+
 
     width:5px;
 
 }
 
+
+
 .vendor-sidebar::-webkit-scrollbar-thumb{
 
-    background:#5B4D91;
+
+    background:#20C997;
+
 
     border-radius:20px;
 

@@ -1,100 +1,273 @@
 package com.dairysync.backend.serviceimpl;
 
+
 import com.dairysync.backend.dto.request.LoginRequest;
 import com.dairysync.backend.dto.request.RegisterRequest;
 import com.dairysync.backend.dto.response.AuthResponse;
+
 import com.dairysync.backend.model.entity.User;
+import com.dairysync.backend.model.entity.Vendor;
+
 import com.dairysync.backend.model.enums.Role;
+import com.dairysync.backend.model.enums.VendorStatus;
+
 import com.dairysync.backend.repository.UserRepository;
+import com.dairysync.backend.repository.VendorRepository;
+
 import com.dairysync.backend.security.jwt.JwtUtils;
 import com.dairysync.backend.service.AuthService;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+
+
 @Service
 public class AuthServiceImpl implements AuthService {
+
 
     @Autowired
     private UserRepository userRepository;
 
+
+    @Autowired
+    private VendorRepository vendorRepository;
+
+
     @Autowired
     private PasswordEncoder passwordEncoder;
+
 
     @Autowired
     private JwtUtils jwtUtils;
 
-    @Override
-    public AuthResponse register(RegisterRequest registerRequest) {
 
-        if (userRepository.existsByEmail(registerRequest.getEmail())) {
-            throw new RuntimeException("Error: Email is already in use!");
+
+    @Override
+    public AuthResponse register(
+            RegisterRequest registerRequest
+    ) {
+
+
+        if(userRepository.existsByEmail(
+                registerRequest.getEmail()
+        )){
+
+            throw new RuntimeException(
+                    "Error: Email is already in use!"
+            );
+
         }
 
+
+
         Role role;
+
         try {
+
             role = Role.valueOf(
                     registerRequest.getRole() != null
                             ? registerRequest.getRole()
                             : "ROLE_VENDOR"
             );
-        } catch (IllegalArgumentException e) {
+
+
+        } catch(Exception e){
+
             role = Role.ROLE_VENDOR;
+
         }
+
+
+
 
         User user = new User();
 
-        user.setFullName(registerRequest.getFullName());
-        user.setEmail(registerRequest.getEmail());
-        user.setPassword(passwordEncoder.encode(registerRequest.getPassword()));
-        user.setPhone(registerRequest.getPhone());
-        user.setLocation(registerRequest.getLocation());
+
+        user.setFullName(
+                registerRequest.getFullName()
+        );
+
+
+        user.setEmail(
+                registerRequest.getEmail()
+        );
+
+
+        user.setPassword(
+                passwordEncoder.encode(
+                        registerRequest.getPassword()
+                )
+        );
+
+
+        user.setPhone(
+                registerRequest.getPhone()
+        );
+
+
+        user.setLocation(
+                registerRequest.getLocation()
+        );
+
+
         user.setRole(role);
+
+
         user.setIsActive(true);
 
-        User savedUser = userRepository.save(user);
 
-        String token = jwtUtils.generateToken(
-                savedUser.getEmail(),
-                savedUser.getRole().name()
-        );
+
+        User savedUser =
+                userRepository.save(user);
+
+
+
+        /*
+         =====================================
+         CREATE VENDOR PROFILE AUTOMATICALLY
+         =====================================
+        */
+
+
+        if(savedUser.getRole()
+                == Role.ROLE_VENDOR){
+
+
+            Vendor vendor = new Vendor();
+
+
+            vendor.setUser(savedUser);
+
+
+            vendor.setStatus(
+                    VendorStatus.ACTIVE
+            );
+
+
+            vendorRepository.save(vendor);
+
+        }
+
+
+
+        String token =
+                jwtUtils.generateToken(
+                        savedUser.getEmail(),
+                        savedUser.getRole().name()
+                );
+
+
 
         return AuthResponse.builder()
-                .userId(savedUser.getId())
-                .fullName(savedUser.getFullName())
-                .email(savedUser.getEmail())
-                .role(savedUser.getRole().name())
+
+                .userId(
+                        savedUser.getId()
+                )
+
+                .fullName(
+                        savedUser.getFullName()
+                )
+
+                .email(
+                        savedUser.getEmail()
+                )
+
+                .role(
+                        savedUser.getRole().name()
+                )
+
                 .token(token)
-                .message("Registration successful!")
+
+                .message(
+                        "Registration successful!"
+                )
+
                 .build();
+
     }
+
+
+
+
 
     @Override
-    public AuthResponse login(LoginRequest loginRequest) {
+    public AuthResponse login(
+            LoginRequest loginRequest
+    ) {
 
-        User user = userRepository.findByEmail(loginRequest.getEmail())
-                .orElseThrow(() -> new RuntimeException("Error: User not found with this email!"));
 
-        if (!passwordEncoder.matches(loginRequest.getPassword(), user.getPassword())) {
-            throw new RuntimeException("Error: Invalid password credentials!");
+        User user =
+                userRepository
+                .findByEmail(
+                        loginRequest.getEmail()
+                )
+                .orElseThrow(
+                        () -> new RuntimeException(
+                                "Error: User not found with this email!"
+                        )
+                );
+
+
+
+        if(!passwordEncoder.matches(
+                loginRequest.getPassword(),
+                user.getPassword()
+        )){
+
+            throw new RuntimeException(
+                    "Error: Invalid password credentials!"
+            );
+
         }
-        if (!user.getIsActive()) {
-            throw new RuntimeException("Account disabled!");
+
+
+
+        if(!user.getIsActive()){
+
+            throw new RuntimeException(
+                    "Account disabled!"
+            );
+
         }
 
 
-        String token = jwtUtils.generateToken(
-                user.getEmail(),
-                user.getRole().name()
-        );
+
+        String token =
+                jwtUtils.generateToken(
+                        user.getEmail(),
+                        user.getRole().name()
+                );
+
+
 
         return AuthResponse.builder()
-                .userId(user.getId())
-                .fullName(user.getFullName())
-                .email(user.getEmail())
-                .role(user.getRole().name())
+
+                .userId(
+                        user.getId()
+                )
+
+                .fullName(
+                        user.getFullName()
+                )
+
+                .email(
+                        user.getEmail()
+                )
+
+                .role(
+                        user.getRole().name()
+                )
+
                 .token(token)
-                .message("Login successful!")
+
+                .message(
+                        "Login successful!"
+                )
+
                 .build();
+
     }
+
 }

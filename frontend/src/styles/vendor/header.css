@@ -1,5 +1,5 @@
 /* ===========================================
-   VENDOR HEADER - DARK THEME
+   VENDOR HEADER - DAIRYSYNC GREEN THEME
 =========================================== */
 
 
@@ -7,7 +7,7 @@
 
     height:80px;
 
-    background:#24213B;
+    background:#198754;
 
     display:flex;
 
@@ -62,7 +62,7 @@
 
     height:48px;
 
-    background:#343053;
+    background:#146C43;
 
     border-radius:16px;
 
@@ -74,7 +74,7 @@
 
     padding:0 20px;
 
-    border:1px solid rgba(255,255,255,0.08);
+    border:1px solid rgba(255,255,255,0.15);
 
     transition:.3s;
 
@@ -84,7 +84,7 @@
 
 .search-box:hover{
 
-    border-color:#7C5CFC;
+    border-color:#20C997;
 
 }
 
@@ -92,9 +92,9 @@
 
 .search-box:focus-within{
 
-    border-color:#7C5CFC;
+    border-color:#20C997;
 
-    box-shadow:0 0 0 4px rgba(124,92,252,.15);
+    box-shadow:0 0 0 4px rgba(32,201,151,.15);
 
 }
 
@@ -102,7 +102,7 @@
 
 .search-box svg{
 
-    color:#BDB7DA;
+    color:#DCFCE7;
 
     font-size:16px;
 
@@ -130,7 +130,7 @@
 
 .search-box input::placeholder{
 
-    color:#BDB7DA;
+    color:#DCFCE7;
 
 }
 
@@ -170,15 +170,15 @@
 
     gap:10px;
 
-    background:#343053;
+    background:#146C43;
 
     border-radius:14px;
 
-    color:#E6E1FF;
+    color:#E8FFF1;
 
     font-size:14px;
 
-    border:1px solid rgba(255,255,255,0.08);
+    border:1px solid rgba(255,255,255,0.15);
 
 }
 
@@ -186,7 +186,7 @@
 
 .header-date svg{
 
-    color:#A78BFA;
+    color:#20C997;
 
 }
 
@@ -207,9 +207,9 @@
 
     border:none;
 
-    background:#343053;
+    background:#146C43;
 
-    color:#E6E1FF;
+    color:#E8FFF1;
 
     display:flex;
 
@@ -231,7 +231,7 @@
 
 .header-icon-button:hover{
 
-    background:#7C5CFC;
+    background:#20C997;
 
     color:white;
 
@@ -268,7 +268,7 @@
 
     border-radius:50%;
 
-    background:#FF5D73;
+    background:#20C997;
 
     color:white;
 
@@ -282,7 +282,7 @@
 
     font-weight:700;
 
-    border:2px solid #24213B;
+    border:2px solid #198754;
 
 }
 
@@ -321,7 +321,7 @@
 
     font-weight:700;
 
-    color:#24213B;
+    color:#146C43;
 
     border-bottom:1px solid #eee;
 
@@ -343,7 +343,7 @@
 
 .notification-item:hover{
 
-    background:#F7F3FF;
+    background:#E8FFF1;
 
 }
 
@@ -404,7 +404,7 @@
 
     padding:7px 12px;
 
-    background:#343053;
+    background:#146C43;
 
     border:none;
 
@@ -418,7 +418,7 @@
 
 .profile-button:hover{
 
-    background:#403866;
+    background:#0F5132;
 
 }
 
@@ -432,7 +432,7 @@
 
     border-radius:50%;
 
-    background:#7C5CFC;
+    background:#20C997;
 
     color:white;
 
@@ -478,7 +478,7 @@
 
 .profile-info span{
 
-    color:#BDB7DA;
+    color:#DCFCE7;
 
     font-size:12px;
 
@@ -488,7 +488,7 @@
 
 .dropdown-icon{
 
-    color:#BDB7DA;
+    color:#DCFCE7;
 
     font-size:12px;
 
@@ -499,6 +499,7 @@
 /* ===========================================
    PROFILE DROPDOWN
 =========================================== */
+
 
 .profile-dropdown{
 
@@ -552,15 +553,15 @@
 
 .profile-dropdown button:hover{
 
-    background:#F6F3FF;
+    background:#E8FFF1;
 
-    color:#7C5CFC;
+    color:#198754;
 
 }
 
 .profile-dropdown svg{
 
-    color:#7C5CFC;
+    color:#198754;
 
     font-size:16px;
 
@@ -568,21 +569,23 @@
 
 .logout-dropdown{
 
-    color:#FF4D6D !important;
+    color:#198754 !important;
 
 }
 
 .logout-dropdown svg{
 
-    color:#FF4D6D !important;
+    color:#198754 !important;
 
 }
 
 .logout-dropdown:hover{
 
-    background:#FFF1F3 !important;
+    background:#DCFCE7 !important;
 
 }
+
+
 
 /* ===========================================
    RESPONSIVE

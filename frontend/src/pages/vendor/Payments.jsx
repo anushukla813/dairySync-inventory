@@ -41,21 +41,48 @@ export default function Payment(){
         .then((data)=>{
 
 
-            console.log(
-                "Payment Data:",
-                data
-            );
+            console.log(data);
 
+            setPayments(data);
 
-            setPayments(
-                data.transactions || []
-            );
+            const totalReceived = data
 
+              .filter(
+                    payment =>
+                    payment.paymentStatus === "Paid"
+                )
 
-            setSummary(
-                data.summary || {}
-            );
+               .reduce(
+                    (sum, payment) =>
+                    sum + payment.amount,
+                     0
+                );
 
+            const pendingPayment = data
+
+                .filter(
+                    payment =>
+                    payment.paymentStatus === "Pending"
+                )
+
+                .reduce(
+                    (sum, payment) =>
+                    sum + payment.amount,
+                    0
+                );
+
+            const completePayments = data.filter(
+             
+                payment =>
+                payment.paymentStatus === "Paid"
+            ).length;
+
+            setSummary({
+                totalReceived,
+                pendingPayment,
+                completedPayments,
+                totalTransactions: data.length
+            });
 
         })
 
@@ -110,9 +137,6 @@ export default function Payment(){
 
 
                 </div>
-
-
-
 
 
                 {/* SUMMARY */}
@@ -174,9 +198,6 @@ export default function Payment(){
                     </div>
 
 
-
-
-
                     <div className="payment-card">
 
 
@@ -199,10 +220,6 @@ export default function Payment(){
 
 
                     </div>
-
-
-
-
 
                     <div className="payment-card">
 
@@ -230,80 +247,52 @@ export default function Payment(){
 
                 </div>
 
-
-
-
-
-
                 {/* TABLE */}
-
-
 
                 <div className="payment-table-container">
 
-
-
                     <table>
-
 
                         <thead>
 
-
                             <tr>
-
 
                                 <th>
                                     Date
                                 </th>
 
-
                                 <th>
                                     Amount
                                 </th>
-
 
                                 <th>
                                     Payment Mode
                                 </th>
 
-
                                 <th>
                                     Transaction ID
                                 </th>
-
 
                                 <th>
                                     Status
                                 </th>
 
-
                             </tr>
-
 
                         </thead>
 
-
-
-
                         <tbody>
-
-
 
                         {
 
-
                             payments.length > 0 ?
 
+                            payments.map((payment) => (
 
-
-                            payments.map((payment)=>(
-
-
-                                <tr key={payment.id}>
-
+                                <tr key={payment.paymentId}>
 
                                     <td>
-                                        {payment.date}
+                                        {payment.paymentDate}
                                     </td>
 
 
@@ -311,24 +300,21 @@ export default function Payment(){
                                         ₹{payment.amount}
                                     </td>
 
-
                                     <td>
-                                        {payment.mode}
+                                        Bank Transfer
                                     </td>
 
 
                                     <td>
-                                        {payment.transactionId}
+                                        {payment.receiptNumber}
                                     </td>
 
-
                                     <td>
-
 
                                         <span
 
                                         className={
-                                            payment.status === "Completed"
+                                            payment.paymentStatus === "Paid"
 
                                             ?
 
@@ -342,8 +328,7 @@ export default function Payment(){
 
                                         >
 
-
-                                            {payment.status}
+                                            {payment.paymentStatus}
 
 
                                         </span>

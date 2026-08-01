@@ -84,6 +84,16 @@ export default function MilkSupply(){
         }
 
 
+        if (!formData.milkTypeId) {
+            alert("Please select a milk type");
+             return;
+        }
+
+        if (Number(formData.quantity) <= 0) {
+            alert("Quantity should be greater than 0");
+            return;
+        }
+        
         const supplyData={
 
             milkTypeId:Number(formData.milkTypeId),
@@ -361,35 +371,6 @@ export default function MilkSupply(){
 
 
                     </div>
-
-
-
-
-                    <div className="milk-row">
-
-
-                        <div className="milk-field full-width">
-
-                            <label>
-                                <FaStickyNote className="field-icon"/>
-                                Remarks
-                            </label>
-
-
-                            <textarea
-                                name="remarks"
-                                value={formData.remarks}
-                                onChange={handleChange}
-                                placeholder="Write remarks..."
-                            />
-
-
-                        </div>
-
-
-                    </div>
-
-
 
 
                     <div className="milk-actions">

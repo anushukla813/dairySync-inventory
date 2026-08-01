@@ -17,7 +17,10 @@ public class VendorRequest {
     private String bankAccount;
 
     @NotBlank(message = "IFSC Code is required")
-    @Size(min = 11, max = 11, message = "IFSC Code must be 11 Characters")
+    @Pattern(
+            regexp = "^[A-Z]{4}0[A-Z0-9]{6}$",
+            message = "Invalid IFSC Code"
+    )
     private String ifscCode;
 
     public VendorRequest(){

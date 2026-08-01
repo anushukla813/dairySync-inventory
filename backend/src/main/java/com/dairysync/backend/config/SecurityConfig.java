@@ -1,5 +1,4 @@
 package com.dairysync.backend.config;
-
 import com.dairysync.backend.security.jwt.JwtAuthFilter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -22,17 +21,24 @@ public class SecurityConfig {
             HttpSecurity http) throws Exception {
 
         http
+                .cors(cors -> {})
                 .csrf(csrf -> csrf.disable())
                 .sessionManagement(session -> session
                         .sessionCreationPolicy(
                                 SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/auth/**").permitAll()
+                        .requestMatchers(
+                                "/vendor/**"
+                        )
+                        .hasAuthority("ROLE_VENDOR")
+
                         .requestMatchers("/vendors/**").permitAll()
                         .requestMatchers("/milk-types/**").permitAll()
                         .requestMatchers("/milk-supplies/**").permitAll()
                         .requestMatchers("/payments/**").permitAll()
                         .requestMatchers("/inventory/**").permitAll()
+
                         .anyRequest().authenticated()
                 )
                 .addFilterBefore(jwtAuthFilter,

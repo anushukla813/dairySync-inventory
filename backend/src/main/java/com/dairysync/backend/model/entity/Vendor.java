@@ -26,7 +26,7 @@ public class Vendor {
     @Column(name = "bank_account",length = 30)
     private String bankAccount;
 
-    @Column(name="ifsc_code", length = 15)
+    @Column(name = "ifsc_code", length = 11, nullable = false)
     private String ifscCode;
 
     @Enumerated(EnumType.STRING)
