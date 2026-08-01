@@ -10,29 +10,38 @@ import com.dairysync.backend.repository.MilkTypeRepository;
 import com.dairysync.backend.repository.VendorRepository;
 import com.dairysync.backend.service.MilkSupplyService;
 import org.springframework.stereotype.Service;
+import com.dairysync.backend.model.entity.Inventory;
+import com.dairysync.backend.repository.InventoryRepository;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
 @Service
-public class MilkSupplyServiceImpl implements MilkSupplyService{
+public class MilkSupplyServiceImpl implements MilkSupplyService {
 
     private final MilkTypeRepository milkTypeRepository;
     private final VendorRepository vendorRepository;
     private final MilkSupplyRepository milkSupplyRepository;
 
+    private final InventoryRepository inventoryRepository;
+
     public MilkSupplyServiceImpl(MilkSupplyRepository milkSupplyRepository,
                                  VendorRepository vendorRepository,
-                                 MilkTypeRepository milkTypeRepository) {
+                                 MilkTypeRepository milkTypeRepository,
+                                 InventoryRepository inventoryRepository) {
 
         this.milkSupplyRepository = milkSupplyRepository;
         this.vendorRepository = vendorRepository;
         this.milkTypeRepository = milkTypeRepository;
+        this.inventoryRepository = inventoryRepository;
     }
+
     @Override
     public MilkSupplyResponse createMilkSupply(Long vendorId,
                                                MilkSupplyRequest request) {
+
 
         Vendor vendor = vendorRepository.findById(vendorId)
                 .orElseThrow(() -> new RuntimeException("Vendor not found"));
@@ -56,6 +65,7 @@ public class MilkSupplyServiceImpl implements MilkSupplyService{
 
         MilkSupply savedMilkSupply = milkSupplyRepository.save(milkSupply);
 
+
         MilkSupplyResponse response = new MilkSupplyResponse();
         response.setSupplyId(savedMilkSupply.getSupplyId());
         response.setMilkType(savedMilkSupply.getMilkType().getMilkName());
@@ -72,6 +82,7 @@ public class MilkSupplyServiceImpl implements MilkSupplyService{
         return response;
 
     }
+
     @Override
     public List<MilkSupplyResponse> getVendorMilkSupply(Long vendorId) {
 
@@ -138,9 +149,38 @@ public class MilkSupplyServiceImpl implements MilkSupplyService{
         MilkSupply milkSupply = milkSupplyRepository.findById(supplyId)
                 .orElseThrow(() -> new RuntimeException("Milk Supply not found"));
 
+        if (milkSupply.getVerificationStatus() == VerificationStatus.Verified) {
+            throw new RuntimeException("Milk Supply is already verified");
+        }
+
         milkSupply.setVerificationStatus(VerificationStatus.Verified);
 
         MilkSupply updatedMilkSupply = milkSupplyRepository.save(milkSupply);
+
+        Inventory inventory = inventoryRepository
+                .findByMilkTypeMilkTypeId(
+                        updatedMilkSupply.getMilkType().getMilkTypeId())
+                .orElse(null);
+
+        if (inventory == null) {
+
+            inventory = new Inventory();
+            inventory.setMilkType(updatedMilkSupply.getMilkType());
+            inventory.setAvailableQuantity(updatedMilkSupply.getQuantity());
+            inventory.setUnit("Liter");
+            inventory.setLastUpdated(LocalDateTime.now());
+
+        } else {
+
+            inventory.setAvailableQuantity(
+                    inventory.getAvailableQuantity()
+                            .add(updatedMilkSupply.getQuantity())
+            );
+
+            inventory.setLastUpdated(LocalDateTime.now());
+        }
+
+        inventoryRepository.save(inventory);
 
         MilkSupplyResponse response = new MilkSupplyResponse();
 
@@ -157,7 +197,5 @@ public class MilkSupplyServiceImpl implements MilkSupplyService{
         response.setTotalAmount(updatedMilkSupply.getTotalAmount());
 
         return response;
-
     }
-
 }

@@ -32,6 +32,7 @@ public class SecurityConfig {
                         .requestMatchers("/milk-types/**").permitAll()
                         .requestMatchers("/milk-supplies/**").permitAll()
                         .requestMatchers("/payments/**").permitAll()
+                        .requestMatchers("/inventory/**").permitAll()
                         .anyRequest().authenticated()
                 )
                 .addFilterBefore(jwtAuthFilter,
