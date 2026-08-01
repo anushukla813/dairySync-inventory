@@ -6,7 +6,12 @@
 
     min-height:100vh;
 
-    background:#24213B;
+    background:
+    linear-gradient(
+        135deg,
+        #f8fcf9,
+        #e8fff1
+    );
 
     padding:30px;
 
@@ -30,8 +35,8 @@
     overflow:hidden;
 
     box-shadow:
-        0 20px 45px rgba(0,0,0,.12),
-        0 10px 25px rgba(124,92,252,.08);
+        0 20px 45px rgba(0,0,0,.10),
+        0 10px 25px rgba(25,135,84,.10);
 
 }
 
@@ -44,13 +49,13 @@
 
     background:linear-gradient(
         135deg,
-        #F8F6FF,
+        #F0FFF7,
         #FFFFFF
     );
 
     padding:28px 35px;
 
-    border-bottom:1px solid #ECEAF8;
+    border-bottom:1px solid #DCEFE5;
 
 }
 
@@ -63,8 +68,7 @@
 
     font-weight:700;
 
-    color:#2B244D;
-
+    color:#101010;
 
 }
 
@@ -73,7 +77,7 @@
 
     margin-top:8px;
 
-    color:#7B7695;
+    color:#5F7A69;
 
     font-size:15px;
 
@@ -90,10 +94,10 @@
 
 }
 
+
 /* ==========================================================
    FORM ROW LAYOUT
 ========================================================== */
-
 
 .milk-row{
 
@@ -108,11 +112,9 @@
 }
 
 
-
 /* ==========================================================
    FIELD
 ========================================================== */
-
 
 .milk-field{
 
@@ -139,11 +141,9 @@
 }
 
 
-
 /* ==========================================================
    LABEL
 ========================================================== */
-
 
 .milk-field label{
 
@@ -157,7 +157,7 @@
 
     font-weight:600;
 
-    color:#4B4765;
+    color:#2F5E45;
 
     white-space:nowrap;
 
@@ -167,15 +167,16 @@
 
 .field-icon{
 
-    color:#7C5CFC;
+    color:#198754;
 
     font-size:15px;
 
 }
+
+
 /* ==========================================================
    INPUTS
 ========================================================== */
-
 
 .milk-field input,
 
@@ -183,12 +184,11 @@
 
 .milk-field textarea{
 
-
     width:100%;
 
-    border:1px solid #E5E3F2;
+    border:1px solid #D8EADF;
 
-    background:#FAFAFD;
+    background:#F8FCF9;
 
     border-radius:14px;
 
@@ -196,7 +196,7 @@
 
     font-size:15px;
 
-    color:#2B244D;
+    color:#1E3A2F;
 
     outline:none;
 
@@ -217,26 +217,22 @@
 }
 
 
-
 /* ==========================================================
    PLACEHOLDER
 ========================================================== */
-
 
 .milk-field input::placeholder,
 
 .milk-field textarea::placeholder{
 
-    color:#A7A3BE;
+    color:#9AB5A4;
 
 }
-
 
 
 /* ==========================================================
    INPUT HOVER
 ========================================================== */
-
 
 .milk-field input:hover,
 
@@ -244,17 +240,14 @@
 
 .milk-field textarea:hover{
 
-
-    border-color:#C8BDFE;
+    border-color:#20C997;
 
 }
-
 
 
 /* ==========================================================
    INPUT FOCUS
 ========================================================== */
-
 
 .milk-field input:focus,
 
@@ -262,22 +255,19 @@
 
 .milk-field textarea:focus{
 
-
-    border-color:#7C5CFC;
+    border-color:#198754;
 
     background:#ffffff;
 
     box-shadow:
-        0 0 0 4px rgba(124,92,252,.12);
+        0 0 0 4px rgba(25,135,84,.12);
 
 }
-
 
 
 /* ==========================================================
    SELECT ARROW
 ========================================================== */
-
 
 .milk-field select{
 
@@ -286,14 +276,11 @@
 }
 
 
-
 /* ==========================================================
    BUTTON SECTION
 ========================================================== */
 
-
 .milk-actions{
-
 
     display:flex;
 
@@ -305,26 +292,22 @@
 
     padding-top:25px;
 
-    border-top:1px solid #ECEAF8;
-
+    border-top:1px solid #DCEFE5;
 
 }
-
 
 
 /* ==========================================================
    RESET BUTTON
 ========================================================== */
 
-
 .reset-btn{
 
+    background:#F3FCF6;
 
-    background:#F8F8FD;
+    color:#198754;
 
-    color:#555;
-
-    border:1px solid #E3E1F0;
+    border:1px solid #CFE7D8;
 
     padding:14px 30px;
 
@@ -338,30 +321,24 @@
 
     transition:.3s;
 
-
 }
 
 
 
 .reset-btn:hover{
 
-
-    background:#EFEFFD;
-
+    background:#E8FFF1;
 
 }
-
 
 
 /* ==========================================================
    SUBMIT BUTTON
 ========================================================== */
 
-
 .submit-btn{
 
-
-    background:#7C5CFC;
+    background:#198754;
 
     color:white;
 
@@ -380,8 +357,7 @@
     transition:.3s;
 
     box-shadow:
-        0 12px 25px rgba(124,92,252,.28);
-
+        0 12px 25px rgba(25,135,84,.28);
 
 }
 
@@ -389,66 +365,49 @@
 
 .submit-btn:hover{
 
-
-    background:#6949F5;
+    background:#146C43;
 
     transform:translateY(-2px);
 
-
 }
-
 
 
 /* ==========================================================
    RESPONSIVE
 ========================================================== */
 
-
 @media(max-width:992px){
-
 
     .milk-row{
 
-
         grid-template-columns:1fr;
 
-
     }
-
 
     .milk-field,
 
     .milk-field.full-width{
 
-
         grid-template-columns:1fr;
 
         gap:8px;
 
-
     }
 
-
     .milk-actions{
-
 
         justify-content:center;
 
         flex-wrap:wrap;
 
-
     }
-
 
     .reset-btn,
 
     .submit-btn{
 
-
         width:100%;
 
-
     }
-
 
 }

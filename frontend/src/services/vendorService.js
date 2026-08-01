@@ -1,367 +1,339 @@
-const API_URL = "http://localhost:8080/api";
-
-/* ADD MILK ENTRY */
-
-export const addMilkSupply = async (supplyData)=>{
+import axios from "axios";
 
 
-    const loggedUser =
-    JSON.parse(
-        localStorage.getItem("loggedInUser")
-    );
+const api = axios.create({
 
-    console.log("Logged User in addMilkSupply:",
-        loggedUser
-    );
+    baseURL: "http://localhost:8080/api"
 
-    console.log("Vendor ID:",
-        loggedUser.vendorId
-    );
+});
 
-    console.log("Token:", loggedUser.token);
-
-
-    const response = await fetch(
-
-        `${API_URL}/milk-supplies/${loggedUser.vendorId}`,
-
-        {
-
-            method:"POST",
-
-            headers:{
-
-                "Content-Type":"application/json",
-
-                "Authorization":
-                `Bearer ${loggedUser.token}`
-
-            },
-
-
-            body:JSON.stringify(supplyData)
-
-        }
-
-    );
-
-
-    const data =
-    await response.json();
-
-
-    if(!response.ok){
-
-        throw new Error(
-            data.message ||
-            "Milk supply failed"
-        );
-
-    }
-
-
-    return data;
-
-};
 
 
 /* ===========================================
-   GET VENDOR DASHBOARD DATA
+   GET LOGGED USER
 =========================================== */
 
-export const getVendorDashboard = async () => {
+const getLoggedUser = () => {
 
-    try {
-
-        const loggedUser = JSON.parse(
+    const user =
+        JSON.parse(
             localStorage.getItem("loggedInUser")
         );
 
+    if(!user){
 
-        const response = await fetch(
-            `${API_URL}/vendor/dashboard`,
+        throw new Error(
+            "User not logged in"
+        );
+
+    }
+
+    return user;
+
+};
+
+
+
+
+/* ===========================================
+   ADD MILK SUPPLY
+=========================================== */
+
+export const addMilkSupply = async(supplyData)=>{
+
+
+    const user = getLoggedUser();
+
+
+    const response =
+        await api.post(
+
+            `/milk-supplies/${user.vendorId}`,
+
+            supplyData,
+
             {
-                method:"GET",
 
                 headers:{
-                    "Authorization":
-                    `Bearer ${loggedUser.token}`,
 
-                    "Content-Type":"application/json"
+                    Authorization:
+                    `Bearer ${user.token}`
+
                 }
+
             }
+
         );
 
 
-        const data = await response.json();
-
-
-        if(!response.ok){
-
-            throw new Error(
-                data.message || "Dashboard fetch failed"
-            );
-
-        }
-
-
-        return data.data;
-
-
-    }
-    catch(error){
-
-        console.log(
-            "Dashboard API Error:",
-            error
-        );
-
-
-        throw error;
-
-    }
+    return response.data;
 
 };
 
-/* ==========================================
+
+
+
+
+/* ===========================================
+   GET VENDOR DASHBOARD
+=========================================== */
+
+
+export const getVendorDashboard = async()=>{
+
+
+    const user = getLoggedUser();
+
+
+    const response =
+        await api.get(
+
+            "/vendor/dashboard",
+
+            {
+
+                headers:{
+
+                    Authorization:
+                    `Bearer ${user.token}`
+
+                }
+
+            }
+
+        );
+
+
+    return response.data.data || response.data;
+
+};
+
+
+
+
+
+/* ===========================================
    GET VENDOR PROFILE
-========================================== */
-
-export const getVendorProfile = async (userId) => {
+=========================================== */
 
 
-    const loggedUser = JSON.parse(
-        localStorage.getItem("loggedInUser")
-    );
+export const getVendorProfile = async(userId)=>{
 
 
-    const response = await fetch(
+    const user = getLoggedUser();
 
-        `${API_URL}/vendors/${userId}`,
 
-        {
+    const response =
+        await api.get(
 
-            headers:{
-                "Authorization":
-                `Bearer ${loggedUser.token}`
+            `/vendors/${userId}`,
+
+            {
+
+                headers:{
+
+                    Authorization:
+                    `Bearer ${user.token}`
+
+                }
+
             }
 
-        }
-
-    );
-
-
-    if (!response.ok) {
-
-        throw new Error(
-            "Failed to fetch vendor profile"
         );
 
-    }
 
-
-    return await response.json();
+    return response.data.data || response.data;
 
 };
 
 
-/* ==========================================
-   UPDATE PROFILE
-========================================== */
 
-export const updateVendorProfile = async (
+
+
+/* ===========================================
+   UPDATE PROFILE
+=========================================== */
+
+
+export const updateVendorProfile =
+async(
     userId,
     vendorData
-) => {
+)=>{
 
 
-    const loggedInUser = JSON.parse(
-        localStorage.getItem("loggedInUser")
-    );
-    
-    const response = await fetch(
+    const user = getLoggedUser();
 
-        `${API_URL}/vendors/${userId}`,
 
-        {
+    const response =
+        await api.put(
 
-            method:"PUT",
+            `/vendors/${userId}`,
 
-            headers:{
+            vendorData,
 
-                "Content-Type":"application/json",
-                "Authorization":`Bearer ${loggedInUser.token}`
+            {
 
-            },
+                headers:{
 
-            body:JSON.stringify(vendorData)
+                    Authorization:
+                    `Bearer ${user.token}`,
 
-        }
+                    "Content-Type":
+                    "application/json"
 
-    );
+                }
 
-    if(!response.ok){
+            }
 
-        throw new Error(
-            "Failed to update profile"
         );
 
-    }
 
-    return await response.json();
+    return response.data;
 
 };
 
 
 
-/* ==========================================
+
+
+
+/* ===========================================
    GET MILK TYPES
-========================================== */
+=========================================== */
+
 
 export const getMilkTypes = async()=>{
 
-    const loggedUser = JSON.parse(
-        localStorage.getItem("loggedInUser")
-    );
+
+    const user = getLoggedUser();
 
 
-    const response = await fetch(
+    const response =
+        await api.get(
 
-        `${API_URL}/milk-types`,
+            "/milk-types",
 
-        {
+            {
 
-            method:"GET",
+                headers:{
 
-            headers:{
-                "Authorization":
-                `Bearer ${loggedUser.token}`,
-                "Content-Type":"application/json"
+                    Authorization:
+                    `Bearer ${user.token}`
+
+                }
+
             }
 
-        }
-
-    );
-
-
-    const data = await response.json();
-
-
-    console.log(
-        "Milk Type API Response:",
-        data
-    );
-
-
-    if(!response.ok){
-
-        throw new Error(
-            data.message ||
-            "Failed to fetch milk types"
         );
 
-    }
 
-
-    return data.data || data;
+    return response.data.data || response.data;
 
 };
+
+
+
+
+
+
+/* ===========================================
+   GET VENDOR PAYMENTS
+=========================================== */
 
 
 export const getVendorPayments = async()=>{
 
-    const response = await fetch(
-        `${API_URL}/payments`
-    );
+
+    const user = getLoggedUser();
 
 
-    if(!response.ok){
+    const response =
+        await api.get(
 
-        throw new Error(
-            "Failed to fetch payments"
+            "/payments",
+
+            {
+
+                headers:{
+
+                    Authorization:
+                    `Bearer ${user.token}`
+
+                }
+
+            }
+
         );
 
-    }
 
-
-    return await response.json();
+    return response.data.data || response.data;
 
 };
+
+
+
+
+
+
+
+/* ===========================================
+   GET VENDOR BY USER ID
+=========================================== */
+
+
+export const getVendorByUserId =
+async(userId)=>{
+
+
+    const user = getLoggedUser();
+
+
+    const response =
+        await api.get(
+
+            `/vendors/${userId}`,
+
+            {
+
+                headers:{
+
+                    Authorization:
+                    `Bearer ${user.token}`
+
+                }
+
+            }
+
+        );
+
+
+    return response.data.data || response.data;
+
+};
+
+
+
+
+
+
+/* ===========================================
+   GET MILK HISTORY
+=========================================== */
+
 
 export const getMilkHistory = async () => {
 
-    const loggedUser = JSON.parse(
-        localStorage.getItem("loggedInUser")
-    );
+    const user = getLoggedUser();
 
-    const response = await fetch(
-
-        `${API_URL}/milk-supplies/vendors/${loggedUser.vendorId}`,
-
+    const response = await api.get(
+        "/vendor/milk-history",
         {
-            method: "GET",
-
             headers: {
-                "Authorization": `Bearer ${loggedUser.token}`,
-                "Content-Type": "application/json"
+                Authorization: `Bearer ${user.token}`
             }
         }
-
     );
 
-    const data = await response.json();
-
-    if (!response.ok) {
-
-        throw new Error(
-            data.message || "Failed to fetch milk history"
-        );
-
-    }
-
-    return data.data;
-};
-
-export const getVendorByUserId = async (userId) => {
-
-    const loggedUser = JSON.parse(
-        localStorage.getItem("loggedInUser")
-    );
-
-    console.log("Calling vendor API...");
-    console.log("User ID:", userId);
-    console.log("Token:", loggedUser.token);
-
-    const response = await fetch(
-
-        `http://localhost:8080/api/vendors/${userId}`,
-
-        {
-            method:"GET",
-
-            headers:{
-                "Authorization":
-                `Bearer ${loggedUser.token}`,
-
-                "Content-Type":"application/json"
-            }
-        }
-
-    );
-
-
-    const data = await response.json();
-
-
-    if(!response.ok){
-
-        throw new Error(
-            data.message || "Vendor fetch failed"
-        );
-
-    }
-
-
-    return data.data;
-
+    return response.data;
 };

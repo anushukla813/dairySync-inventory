@@ -33,7 +33,6 @@ console.log("Profile User ID:", userId);
         fullName: "",
         email: "",
         phoneNumber: "",
-        city: "",
         address: "",
         bankHolderName: "",
         bankAccount: "",
@@ -79,12 +78,9 @@ console.log("Profile User ID:", userId);
 
                 phoneNumber: data.phoneNumber || "",
 
-                city: data.location || "",
-
                 address: data.address || "",
 
-
-                bankHolderName: data.bankHolder || "",
+                bankHolderName: data.bankHolderName || "",
 
                 bankAccount: data.bankAccount || "",
 

@@ -16,4 +16,6 @@ public interface MilkSupplyService {
 
     MilkSupplyResponse verifyMilkSupply(Long supplyId);
 
+    List<MilkSupplyResponse> getMilkHistory(String email);
+
 }

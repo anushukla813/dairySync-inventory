@@ -1,19 +1,30 @@
 /* ==========================================================
-   PAYMENT PAGE
+   PAYMENT PAGE - DAIRYSYNC GREEN THEME
 ========================================================== */
+
+
 .payment-page{
 
     min-height:100vh;
 
-    background:#24213B;
+    background:
+    linear-gradient(
+        135deg,
+        #f8fcf9,
+        #e8fff1
+    );
 
     padding:30px;
 
 }
 
+
+
 /* ==========================================================
    MAIN CONTAINER
 ========================================================== */
+
+
 .payment-container{
 
     max-width:1250px;
@@ -27,19 +38,24 @@
     overflow:hidden;
 
     box-shadow:
-    0 20px 45px rgba(0,0,0,.12),
-    0 10px 25px rgba(124,92,252,.08);
+    0 20px 45px rgba(0,0,0,.10),
+    0 10px 25px rgba(25,135,84,.10);
 
 }
+
+
 
 /* ==========================================================
    HEADER
 ========================================================== */
+
+
 .payment-header{
 
-    background:linear-gradient(
+    background:
+    linear-gradient(
         135deg,
-        #F8F6FF,
+        #F0FFF7,
         #FFFFFF
     );
 
@@ -47,9 +63,11 @@
     padding:28px 35px;
 
 
-    border-bottom:1px solid #ECEAF8;
+    border-bottom:1px solid #DCFCE7;
 
 }
+
+
 
 .payment-header h1{
 
@@ -60,26 +78,31 @@
 
     font-weight:700;
 
-    color:#2B244D;
+    color:#111827;
 
 
 }
+
+
 
 .payment-header p{
 
 
     margin-top:8px;
 
-    color:#7B7695;
+    color:#64748B;
 
     font-size:15px;
 
 
 }
 
+
+
 /* ==========================================================
    SUMMARY SECTION
 ========================================================== */
+
 
 .payment-summary{
 
@@ -96,10 +119,12 @@
 
 }
 
+
+
 .payment-card{
 
 
-    background:#F8F6FF;
+    background:#F0FFF7;
 
 
     border-radius:18px;
@@ -122,16 +147,20 @@
 
 }
 
+
+
 .payment-card:hover{
 
 
     transform:translateY(-5px);
 
     box-shadow:
-    0 10px 25px rgba(124,92,252,.15);
+    0 10px 25px rgba(25,135,84,.15);
 
 
 }
+
+
 
 .payment-icon{
 
@@ -147,13 +176,15 @@
     border-radius:14px;
 
 
-    background:#7C5CFC;
+    background:#198754;
 
 
     color:white;
 
 
 }
+
+
 
 .payment-card h3{
 
@@ -164,13 +195,15 @@
     font-size:14px;
 
 
-    color:#7B7695;
+    color:#64748B;
 
 
     font-weight:500;
 
 
 }
+
+
 
 .payment-card span{
 
@@ -187,10 +220,13 @@
     font-weight:700;
 
 
-    color:#2B244D;
+    color:#111827;
 
 
 }
+
+
+
 /* ==========================================================
    PAYMENT TABLE
 ========================================================== */
@@ -198,15 +234,20 @@
 
 .payment-table-container{
 
+
     padding:0 35px 35px;
 
     overflow-x:auto;
+
 
 }
 
 
 
+
+
 .payment-table-container table{
+
 
     width:100%;
 
@@ -218,7 +259,10 @@
 
     overflow:hidden;
 
+
 }
+
+
 
 
 
@@ -231,10 +275,10 @@
     padding:16px;
 
 
-    background:#F8F6FF;
+    background:#F0FFF7;
 
 
-    color:#2B244D;
+    color:#166534;
 
 
     font-size:14px;
@@ -247,22 +291,26 @@
 
 
 
+
+
 .payment-table-container td{
 
 
     padding:16px;
 
 
-    border-bottom:1px solid #ECEAF8;
+    border-bottom:1px solid #DCFCE7;
 
 
-    color:#55516F;
+    color:#475569;
 
 
     font-size:14px;
 
 
 }
+
+
 
 
 
@@ -276,6 +324,8 @@
 
 
 
+
+
 .payment-table-container tbody tr{
 
 
@@ -286,13 +336,16 @@
 
 
 
+
+
 .payment-table-container tbody tr:hover{
 
 
-    background:#FAF9FF;
+    background:#F0FFF7;
 
 
 }
+
 
 
 
@@ -325,29 +378,35 @@
 
 
 
+
+
 .payment-status.completed{
 
 
-    background:#E8F8EE;
+    background:#DCFCE7;
 
 
-    color:#1B8A46;
+    color:#15803D;
 
 
 }
+
+
 
 
 
 .payment-status.pending{
 
 
-    background:#FFF4E5;
+    background:#FEF3C7;
 
 
     color:#D97706;
 
 
 }
+
+
 
 
 
@@ -367,13 +426,15 @@
     padding:40px !important;
 
 
-    color:#8A86A3 !important;
+    color:#94A3B8 !important;
 
 
     font-size:15px;
 
 
 }
+
+
 
 
 
@@ -402,6 +463,8 @@
 
 
 
+
+
 @media(max-width:650px){
 
 
@@ -415,6 +478,8 @@
 
 
 
+
+
     .payment-header{
 
 
@@ -423,6 +488,8 @@
 
     }
 
+
+
     .payment-header h1{
 
 
@@ -430,6 +497,8 @@
 
 
     }
+
+
 
     .payment-summary{
 
@@ -441,6 +510,8 @@
 
 
     }
+
+
 
     .payment-table-container{
 

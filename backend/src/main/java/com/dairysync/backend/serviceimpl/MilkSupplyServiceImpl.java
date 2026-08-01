@@ -10,6 +10,8 @@ import com.dairysync.backend.repository.MilkTypeRepository;
 import com.dairysync.backend.repository.VendorRepository;
 import com.dairysync.backend.service.MilkSupplyService;
 import org.springframework.stereotype.Service;
+import com.dairysync.backend.model.entity.User;
+import com.dairysync.backend.repository.UserRepository;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -21,14 +23,17 @@ public class MilkSupplyServiceImpl implements MilkSupplyService{
     private final MilkTypeRepository milkTypeRepository;
     private final VendorRepository vendorRepository;
     private final MilkSupplyRepository milkSupplyRepository;
+    private final UserRepository userRepository;
 
     public MilkSupplyServiceImpl(MilkSupplyRepository milkSupplyRepository,
                                  VendorRepository vendorRepository,
-                                 MilkTypeRepository milkTypeRepository) {
+                                 MilkTypeRepository milkTypeRepository,
+                                 UserRepository userRepository) {
 
         this.milkSupplyRepository = milkSupplyRepository;
         this.vendorRepository = vendorRepository;
         this.milkTypeRepository = milkTypeRepository;
+        this.userRepository = userRepository;
     }
     @Override
     public MilkSupplyResponse createMilkSupply(Long vendorId,
@@ -159,5 +164,43 @@ public class MilkSupplyServiceImpl implements MilkSupplyService{
         return response;
 
     }
+
+    @Override
+    public List<MilkSupplyResponse> getMilkHistory(String email) {
+
+    User user = userRepository.findByEmail(email)
+            .orElseThrow(() -> new RuntimeException("User not found"));
+
+    Vendor vendor = vendorRepository.findByUserId(user.getId())
+            .orElseThrow(() -> new RuntimeException("Vendor not found"));
+
+    List<MilkSupply> milkSupplies =
+            milkSupplyRepository.findByVendorVendorIdOrderBySupplyDateDesc(
+                    vendor.getVendorId()
+            );
+
+    List<MilkSupplyResponse> responseList = new ArrayList<>();
+
+    for (MilkSupply milkSupply : milkSupplies) {
+
+        MilkSupplyResponse response = new MilkSupplyResponse();
+
+        response.setSupplyId(milkSupply.getSupplyId());
+        response.setMilkType(milkSupply.getMilkType().getMilkName());
+        response.setQuantity(milkSupply.getQuantity());
+        response.setFatPercentage(milkSupply.getFatPercentage());
+        response.setSnfPercentage(milkSupply.getSnfPercentage());
+        response.setSupplyDate(milkSupply.getSupplyDate());
+        response.setSupplyTime(milkSupply.getSupplyTime());
+        response.setShift(milkSupply.getShift());
+        response.setVerificationStatus(milkSupply.getVerificationStatus());
+        response.setPricePerLiter(milkSupply.getPricePerLiter());
+        response.setTotalAmount(milkSupply.getTotalAmount());
+
+        responseList.add(response);
+    }
+
+    return responseList;
+}
 
 }
