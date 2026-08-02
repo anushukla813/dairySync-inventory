@@ -38,6 +38,7 @@ public class SecurityConfig {
                         .requestMatchers("/milk-supplies/**").permitAll()
                         .requestMatchers("/payments/**").permitAll()
                         .requestMatchers("/inventory/**").permitAll()
+                        .requestMatchers("/sales/**").permitAll()
 
                         .anyRequest().authenticated()
                 )
