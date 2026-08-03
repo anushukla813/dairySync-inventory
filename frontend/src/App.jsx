@@ -21,6 +21,20 @@ import SupplyHistory from "./pages/vendor/SupplyHistory";
 import Payments from "./pages/vendor/Payments";
 import Profile from "./pages/vendor/Profile";
 
+/* Seller Layout */
+import SellerLayout from "./components/seller/layout/SellerLayout";
+
+/* Seller Pages */
+import SellerDashboard from "./components/seller/dashboard/Dashboard";
+import InventoryList from "./components/seller/inventory/InventoryList";
+import UpdateStock from "./components/seller/inventory/UpdateStock";
+import ReduceStock from "./components/seller/inventory/ReduceStock";
+import StockHistory from "./components/seller/inventory/StockHistory";
+import CreateSale from "./components/seller/sales/CreateSale";
+import VendorPaymentList from "./components/seller/payments/VendorPaymentList";
+
+
+
 function App() {
   return (
     <BrowserRouter>
@@ -38,30 +52,33 @@ function App() {
 
         <Route path="/vendor" element={<VendorLayout />}>
 
-          <Route
-            path="dashboard"
-            element={<Dashboard />}
-          />
+          <Route path="dashboard" element={<Dashboard />} />
 
-          <Route
-            path="supply"
-            element={<MilkSupply />}
-          />
+          <Route path="supply" element={<MilkSupply />} />
 
-          <Route
-            path="history"
-            element={<SupplyHistory />}
-          />
+          <Route path="history" element={<SupplyHistory />} />
 
-          <Route
-            path="payments"
-            element={<Payments />}
-          />
+          <Route path="payments" element={<Payments />} />
 
-          <Route
-            path="profile"
-            element={<Profile />}
-          />
+          <Route path="profile" element={<Profile />} />
+
+        </Route>
+
+        <Route path="/seller" element={<SellerLayout />}>
+
+        <Route path="dashboard" element={<SellerDashboard />} />
+
+        <Route path="inventory" element={<InventoryList />} />
+
+         <Route path="update-stock" element={<UpdateStock />} />
+
+         <Route path="reduce-stock" element={<ReduceStock />} />
+
+         <Route path="history" element={<StockHistory />} />
+
+         <Route path="sales" element={<CreateSale />} />
+
+         <Route path="payments" element={<VendorPaymentList />} />
 
         </Route>
 

@@ -1,0 +1,224 @@
+/* ===========================================
+   SELLER HEADER
+   DAIRYSYNC GREEN THEME
+=========================================== */
+
+
+.seller-header{
+
+
+    height:80px;
+
+
+    background:#198754;
+
+
+
+    display:flex;
+
+
+    align-items:center;
+
+
+    justify-content:space-between;
+
+
+
+    padding:0 35px;
+
+
+
+    position:sticky;
+
+
+    top:0;
+
+
+
+    z-index:1000;
+
+
+
+    box-shadow:
+
+    0 4px 20px rgba(0,0,0,0.25);
+
+
+}
+
+
+
+
+
+.header-left{
+
+
+    display:flex;
+
+
+    align-items:center;
+
+
+}
+
+
+
+
+
+.header-actions{
+
+
+    display:flex;
+
+
+    align-items:center;
+
+
+    gap:16px;
+
+
+}
+
+
+
+
+
+.header-date{
+
+
+    height:45px;
+
+
+    padding:0 18px;
+
+
+    display:flex;
+
+
+    align-items:center;
+
+
+    gap:10px;
+
+
+
+    background:#146C43;
+
+
+
+    border-radius:14px;
+
+
+
+    color:#E8FFF1;
+
+
+
+    font-size:14px;
+
+
+
+    border:
+
+    1px solid rgba(255,255,255,0.15);
+
+
+}
+
+
+
+
+
+.header-date svg{
+
+
+    color:#20C997;
+
+
+}
+
+
+
+
+
+.header-icon-button{
+
+
+    width:45px;
+
+
+    height:45px;
+
+
+
+    border-radius:14px;
+
+
+
+    border:none;
+
+
+
+    background:#146C43;
+
+
+
+    color:#E8FFF1;
+
+
+
+    display:flex;
+
+
+    align-items:center;
+
+
+    justify-content:center;
+
+
+
+    cursor:pointer;
+
+
+
+    font-size:17px;
+
+
+
+    transition:.3s;
+
+
+}
+
+
+
+
+.header-icon-button:hover{
+
+
+    background:#20C997;
+
+
+    color:white;
+
+
+
+    transform:translateY(-2px);
+
+
+}
+
+
+
+
+@media(max-width:1000px){
+
+
+    .header-date{
+
+        display:none;
+
+    }
+
+
+}

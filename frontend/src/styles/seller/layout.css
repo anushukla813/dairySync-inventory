@@ -1,0 +1,39 @@
+/* ===========================================
+   SELLER LAYOUT
+   SAME STRUCTURE AS VENDOR
+=========================================== */
+
+
+.seller-layout{
+
+    min-height:100vh;
+
+}
+
+
+/* Main content */
+
+.seller-content{
+
+    margin-left:270px;
+
+    min-height:100vh;
+
+    background:#F5F7FC;
+
+}
+
+
+
+/* Page area */
+
+.seller-page{
+
+
+    padding:30px 35px;
+
+
+    min-height:calc(100vh - 80px);
+
+
+}
