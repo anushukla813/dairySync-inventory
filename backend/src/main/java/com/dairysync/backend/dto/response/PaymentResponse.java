@@ -11,6 +11,8 @@ public class PaymentResponse {
     private BigDecimal amount;
     private LocalDate paymentDate;
     private PaymentStatus paymentStatus;
+    private String vendorName;
+    private String milkType;
 
     public PaymentResponse(){
 
@@ -54,5 +56,21 @@ public class PaymentResponse {
 
     public void setPaymentStatus(PaymentStatus paymentStatus) {
         this.paymentStatus = paymentStatus;
+    }
+
+    public String getVendorName() {
+    return vendorName;
+    }
+
+    public void setVendorName(String vendorName) {
+       this.vendorName = vendorName;
+    }
+
+    public String getMilkType() {
+    return milkType;
+    }
+
+    public void setMilkType(String milkType) {
+       this.milkType = milkType;
     }
 }

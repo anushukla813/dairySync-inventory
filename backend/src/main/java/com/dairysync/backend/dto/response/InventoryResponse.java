@@ -11,6 +11,7 @@ public class InventoryResponse {
     private BigDecimal availableQuantity;
     private String unit;
     private LocalDateTime lastUpdated;
+    private BigDecimal pricePerLiter;
 
     public InventoryResponse() {
 
@@ -46,6 +47,14 @@ public class InventoryResponse {
 
     public void setAvailableQuantity(BigDecimal availableQuantity) {
         this.availableQuantity = availableQuantity;
+    }
+
+    public BigDecimal getPricePerLiter(){
+        return pricePerLiter;
+    }
+
+    public void setPricePerLiter(BigDecimal pricePerLiter){
+        this.pricePerLiter = pricePerLiter;
     }
 
     public String getUnit() {

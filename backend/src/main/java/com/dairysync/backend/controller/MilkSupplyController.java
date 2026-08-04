@@ -68,5 +68,17 @@ public class MilkSupplyController {
                 response
         );
     }
+
+    @GetMapping
+    public ApiResponse<List<MilkSupplyResponse>> getAllMilkSupplies() {
+
+        List<MilkSupplyResponse> response =
+               milkSupplyService.getAllMilkSupplies();
+
+        return ApiResponse.success(
+            "All milk supplies fetched successfully",
+            response
+        );
+     }
 }
 

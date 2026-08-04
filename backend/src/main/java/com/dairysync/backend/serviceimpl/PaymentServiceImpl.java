@@ -58,6 +58,9 @@ public class PaymentServiceImpl implements PaymentService {
         response.setAmount(savedPayment.getAmount());
         response.setPaymentDate(savedPayment.getPaymentDate());
         response.setPaymentStatus(savedPayment.getPaymentStatus());
+        response.setVendorName(savedPayment.getVendor().getUser().getFullName());
+        response.setMilkType(savedPayment.getMilkSupply().getMilkType().getMilkName());
+        
 
         return response;
     }
@@ -79,6 +82,8 @@ public class PaymentServiceImpl implements PaymentService {
             response.setAmount(payment.getAmount());
             response.setPaymentDate(payment.getPaymentDate());
             response.setPaymentStatus(payment.getPaymentStatus());
+            response.setVendorName(payment.getVendor().getUser().getFullName());
+            response.setMilkType(payment.getMilkSupply().getMilkType().getMilkName());
 
             responseList.add(response);
         }
@@ -99,6 +104,8 @@ public class PaymentServiceImpl implements PaymentService {
         response.setAmount(payment.getAmount());
         response.setPaymentDate(payment.getPaymentDate());
         response.setPaymentStatus(payment.getPaymentStatus());
+        response.setVendorName(payment.getVendor().getUser().getFullName());
+        response.setMilkType(payment.getMilkSupply().getMilkType().getMilkName());
 
         return response;
     }

@@ -1,19 +1,20 @@
 package com.dairysync.backend.serviceimpl;
+
 import com.dairysync.backend.dto.request.MilkSupplyRequest;
 import com.dairysync.backend.dto.response.MilkSupplyResponse;
+import com.dairysync.backend.model.entity.Inventory;
 import com.dairysync.backend.model.entity.MilkSupply;
 import com.dairysync.backend.model.entity.MilkType;
+import com.dairysync.backend.model.entity.User;
 import com.dairysync.backend.model.entity.Vendor;
 import com.dairysync.backend.model.enums.VerificationStatus;
+import com.dairysync.backend.repository.InventoryRepository;
 import com.dairysync.backend.repository.MilkSupplyRepository;
 import com.dairysync.backend.repository.MilkTypeRepository;
+import com.dairysync.backend.repository.UserRepository;
 import com.dairysync.backend.repository.VendorRepository;
 import com.dairysync.backend.service.MilkSupplyService;
 import org.springframework.stereotype.Service;
-import com.dairysync.backend.model.entity.Inventory;
-import com.dairysync.backend.repository.InventoryRepository;
-import com.dairysync.backend.model.entity.User;
-import com.dairysync.backend.repository.UserRepository;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -27,14 +28,14 @@ public class MilkSupplyServiceImpl implements MilkSupplyService {
     private final VendorRepository vendorRepository;
     private final MilkSupplyRepository milkSupplyRepository;
     private final UserRepository userRepository;
-
     private final InventoryRepository inventoryRepository;
 
-    public MilkSupplyServiceImpl(MilkSupplyRepository milkSupplyRepository,
-                                 VendorRepository vendorRepository,
-                                 MilkTypeRepository milkTypeRepository,
-                                 InventoryRepository inventoryRepository,
-                                 UserRepository userRepository) {
+    public MilkSupplyServiceImpl(
+            MilkSupplyRepository milkSupplyRepository,
+            VendorRepository vendorRepository,
+            MilkTypeRepository milkTypeRepository,
+            InventoryRepository inventoryRepository,
+            UserRepository userRepository) {
 
         this.milkSupplyRepository = milkSupplyRepository;
         this.vendorRepository = vendorRepository;
@@ -46,7 +47,6 @@ public class MilkSupplyServiceImpl implements MilkSupplyService {
     @Override
     public MilkSupplyResponse createMilkSupply(Long vendorId,
                                                MilkSupplyRequest request) {
-
 
         Vendor vendor = vendorRepository.findById(vendorId)
                 .orElseThrow(() -> new RuntimeException("Vendor not found"));
@@ -70,9 +70,11 @@ public class MilkSupplyServiceImpl implements MilkSupplyService {
 
         MilkSupply savedMilkSupply = milkSupplyRepository.save(milkSupply);
 
-
         MilkSupplyResponse response = new MilkSupplyResponse();
+
         response.setSupplyId(savedMilkSupply.getSupplyId());
+        response.setVendorId(savedMilkSupply.getVendor().getVendorId());
+        response.setVendorName(savedMilkSupply.getVendor().getUser().getFullName());
         response.setMilkType(savedMilkSupply.getMilkType().getMilkName());
         response.setQuantity(savedMilkSupply.getQuantity());
         response.setFatPercentage(savedMilkSupply.getFatPercentage());
@@ -85,7 +87,6 @@ public class MilkSupplyServiceImpl implements MilkSupplyService {
         response.setTotalAmount(savedMilkSupply.getTotalAmount());
 
         return response;
-
     }
 
     @Override
@@ -101,6 +102,8 @@ public class MilkSupplyServiceImpl implements MilkSupplyService {
             MilkSupplyResponse response = new MilkSupplyResponse();
 
             response.setSupplyId(milkSupply.getSupplyId());
+            response.setVendorId(milkSupply.getVendor().getVendorId());
+            response.setVendorName(milkSupply.getVendor().getUser().getFullName());
             response.setMilkType(milkSupply.getMilkType().getMilkName());
             response.setQuantity(milkSupply.getQuantity());
             response.setFatPercentage(milkSupply.getFatPercentage());
@@ -131,6 +134,8 @@ public class MilkSupplyServiceImpl implements MilkSupplyService {
             MilkSupplyResponse response = new MilkSupplyResponse();
 
             response.setSupplyId(milkSupply.getSupplyId());
+            response.setVendorId(milkSupply.getVendor().getVendorId());
+            response.setVendorName(milkSupply.getVendor().getUser().getFullName());
             response.setMilkType(milkSupply.getMilkType().getMilkName());
             response.setQuantity(milkSupply.getQuantity());
             response.setFatPercentage(milkSupply.getFatPercentage());
@@ -140,6 +145,37 @@ public class MilkSupplyServiceImpl implements MilkSupplyService {
             response.setShift(milkSupply.getShift());
             response.setVerificationStatus(milkSupply.getVerificationStatus());
             response.setPricePerLiter(milkSupply.getPricePerLiter());
+            response.setTotalAmount(milkSupply.getTotalAmount());
+
+            responseList.add(response);
+        }
+
+        return responseList;
+    }
+
+    @Override
+    public List<MilkSupplyResponse> getAllMilkSupplies() {
+        
+        List<MilkSupply> milkSupplies = milkSupplyRepository.findAll();
+
+        List<MilkSupplyResponse> responseList = new ArrayList<>();
+
+        for (MilkSupply milkSupply : milkSupplies) {
+
+            MilkSupplyResponse response = new MilkSupplyResponse();
+
+            response.setSupplyId(milkSupply.getSupplyId());
+            response.setVendorId(milkSupply.getVendor().getVendorId());
+            response.setVendorName(milkSupply.getVendor().getUser().getFullName());
+            response.setMilkType(milkSupply.getMilkType().getMilkName());
+            response.setQuantity(milkSupply.getQuantity());
+            response.setFatPercentage(milkSupply.getFatPercentage());
+            response.setSnfPercentage(milkSupply.getSnfPercentage());
+            response.setPricePerLiter(milkSupply.getPricePerLiter());
+            response.setSupplyDate(milkSupply.getSupplyDate());
+            response.setSupplyTime(milkSupply.getSupplyTime());
+            response.setShift(milkSupply.getShift());
+            response.setVerificationStatus(milkSupply.getVerificationStatus());
             response.setTotalAmount(milkSupply.getTotalAmount());
 
             responseList.add(response);
@@ -190,6 +226,8 @@ public class MilkSupplyServiceImpl implements MilkSupplyService {
         MilkSupplyResponse response = new MilkSupplyResponse();
 
         response.setSupplyId(updatedMilkSupply.getSupplyId());
+        response.setVendorId(updatedMilkSupply.getVendor().getVendorId());
+        response.setVendorName(updatedMilkSupply.getVendor().getUser().getFullName());
         response.setMilkType(updatedMilkSupply.getMilkType().getMilkName());
         response.setQuantity(updatedMilkSupply.getQuantity());
         response.setFatPercentage(updatedMilkSupply.getFatPercentage());
@@ -204,44 +242,43 @@ public class MilkSupplyServiceImpl implements MilkSupplyService {
         return response;
     }
 
-
     @Override
     public List<MilkSupplyResponse> getMilkHistory(String email) {
 
-    User user = userRepository.findByEmail(email)
-            .orElseThrow(() -> new RuntimeException("User not found"));
+        User user = userRepository.findByEmail(email)
+                .orElseThrow(() -> new RuntimeException("User not found"));
 
-    Vendor vendor = vendorRepository.findByUserId(user.getId())
-            .orElseThrow(() -> new RuntimeException("Vendor not found"));
+        Vendor vendor = vendorRepository.findByUserId(user.getId())
+                .orElseThrow(() -> new RuntimeException("Vendor not found"));
 
-    List<MilkSupply> milkSupplies =
-            milkSupplyRepository.findByVendorVendorIdOrderBySupplyDateDesc(
-                    vendor.getVendorId()
-            );
+        List<MilkSupply> milkSupplies =
+                milkSupplyRepository.findByVendorVendorIdOrderBySupplyDateDesc(
+                        vendor.getVendorId()
+                );
 
-    List<MilkSupplyResponse> responseList = new ArrayList<>();
+        List<MilkSupplyResponse> responseList = new ArrayList<>();
 
-    for (MilkSupply milkSupply : milkSupplies) {
+        for (MilkSupply milkSupply : milkSupplies) {
 
-        MilkSupplyResponse response = new MilkSupplyResponse();
+            MilkSupplyResponse response = new MilkSupplyResponse();
 
-        response.setSupplyId(milkSupply.getSupplyId());
-        response.setMilkType(milkSupply.getMilkType().getMilkName());
-        response.setQuantity(milkSupply.getQuantity());
-        response.setFatPercentage(milkSupply.getFatPercentage());
-        response.setSnfPercentage(milkSupply.getSnfPercentage());
-        response.setSupplyDate(milkSupply.getSupplyDate());
-        response.setSupplyTime(milkSupply.getSupplyTime());
-        response.setShift(milkSupply.getShift());
-        response.setVerificationStatus(milkSupply.getVerificationStatus());
-        response.setPricePerLiter(milkSupply.getPricePerLiter());
-        response.setTotalAmount(milkSupply.getTotalAmount());
+            response.setSupplyId(milkSupply.getSupplyId());
+            response.setVendorId(milkSupply.getVendor().getVendorId());
+            response.setVendorName(milkSupply.getVendor().getUser().getFullName());
+            response.setMilkType(milkSupply.getMilkType().getMilkName());
+            response.setQuantity(milkSupply.getQuantity());
+            response.setFatPercentage(milkSupply.getFatPercentage());
+            response.setSnfPercentage(milkSupply.getSnfPercentage());
+            response.setSupplyDate(milkSupply.getSupplyDate());
+            response.setSupplyTime(milkSupply.getSupplyTime());
+            response.setShift(milkSupply.getShift());
+            response.setVerificationStatus(milkSupply.getVerificationStatus());
+            response.setPricePerLiter(milkSupply.getPricePerLiter());
+            response.setTotalAmount(milkSupply.getTotalAmount());
 
-        responseList.add(response);
+            responseList.add(response);
+        }
+
+        return responseList;
     }
-
-    return responseList;
 }
-
-}
-

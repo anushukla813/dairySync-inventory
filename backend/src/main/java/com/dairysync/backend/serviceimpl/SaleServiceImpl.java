@@ -11,6 +11,7 @@ import com.dairysync.backend.repository.MilkTypeRepository;
 import com.dairysync.backend.repository.SaleRepository;
 import com.dairysync.backend.repository.UserRepository;
 import com.dairysync.backend.service.SaleService;
+import com.dairysync.backend.service.InventoryHistoryService;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -30,23 +31,26 @@ public class SaleServiceImpl implements SaleService {
     private final MilkTypeRepository milkTypeRepository;
     private final InventoryRepository inventoryRepository;
     private final UserRepository userRepository;
+    private final InventoryHistoryService inventoryHistoryService;
 
 
     public SaleServiceImpl(
             SaleRepository saleRepository,
             MilkTypeRepository milkTypeRepository,
             InventoryRepository inventoryRepository,
-            UserRepository userRepository) {
+            UserRepository userRepository,
+            InventoryHistoryService inventoryHistoryService) {
 
         this.saleRepository = saleRepository;
         this.milkTypeRepository = milkTypeRepository;
         this.inventoryRepository = inventoryRepository;
         this.userRepository = userRepository;
+        this.inventoryHistoryService = inventoryHistoryService;
     }
 
 
     @Override
-    public SaleResponse createSale(SaleRequest request) {
+    public SaleResponse createSale(SaleRequest request, String email) {
 
 
         MilkType milkType = milkTypeRepository
@@ -61,7 +65,7 @@ public class SaleServiceImpl implements SaleService {
                         new RuntimeException("Inventory not found"));
 
 
-        User seller = userRepository.findById(1L)
+        User seller = userRepository.findByEmail(email)
                 .orElseThrow(() ->
                         new RuntimeException("Seller not found"));
 
@@ -110,6 +114,13 @@ public class SaleServiceImpl implements SaleService {
 
 
         inventoryRepository.save(inventory);
+
+        inventoryHistoryService.saveHistory(
+                inventory.getInventoryId(),
+                "SALE",
+                request.getQuantity(),
+                seller.getFullName()
+        );
 
 
         Sale savedSale =

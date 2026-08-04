@@ -14,6 +14,8 @@ public interface MilkSupplyService {
 
     List<MilkSupplyResponse> getTodayMilkSupply(LocalDate date);
 
+    List<MilkSupplyResponse> getAllMilkSupplies();
+
     MilkSupplyResponse verifyMilkSupply(Long supplyId);
 
     List<MilkSupplyResponse> getMilkHistory(String email);

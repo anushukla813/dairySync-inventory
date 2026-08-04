@@ -10,6 +10,8 @@ import java.time.LocalTime;
 
 public class MilkSupplyResponse {
     private Long supplyId;
+    private Long vendorId;
+    private String vendorName;
     private String milkType;
     private BigDecimal quantity;
     private BigDecimal fatPercentage;
@@ -33,6 +35,22 @@ public class MilkSupplyResponse {
     public void setSupplyId(Long supplyId) {
         this.supplyId = supplyId;
     }
+
+    public Long getVendorId() {
+    return vendorId;
+    }
+
+    public void setVendorId(Long vendorId) {
+       this.vendorId = vendorId;
+    }
+
+    public String getVendorName() {
+    return vendorName;
+    }
+
+    public void setVendorName(String vendorName) {
+       this.vendorName = vendorName;
+    }  
 
     public String getMilkType() {
         return milkType;

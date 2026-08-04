@@ -14,6 +14,9 @@ import org.springframework.web.bind.annotation.*;
 import java.time.LocalDate;
 import java.util.List;
 
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+
 
 @RestController
 @RequestMapping("/sales")
@@ -33,9 +36,14 @@ public class SaleController {
     public ResponseEntity<SaleResponse> createSale(
             @Valid @RequestBody SaleRequest request) {
 
+        Authentication authentication = 
+               SecurityContextHolder
+                       .getContext()
+                       .getAuthentication();
+        String email = authentication.getName();
 
         SaleResponse response =
-                saleService.createSale(request);
+                saleService.createSale(request, email);
 
 
         return new ResponseEntity<>(
