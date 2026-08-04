@@ -2,6 +2,11 @@
 @import url("./sidebar.css");
 @import url("./header.css");
 @import url("./dashboard.css");
+@import url("./inventory.css");
+@import url("./updateStock.css");
+@import url("./reduceStock.css");
+@import url("./createSale.css");
+@import url("./vendorPayment.css");
 
 
 *{

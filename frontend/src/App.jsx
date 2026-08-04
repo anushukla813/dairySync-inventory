@@ -34,7 +34,6 @@ import CreateSale from "./components/seller/sales/CreateSale";
 import VendorPaymentList from "./components/seller/payments/VendorPaymentList";
 
 
-
 function App() {
   return (
     <BrowserRouter>
@@ -64,6 +63,8 @@ function App() {
 
         </Route>
 
+        {/*Seller Module */}
+
         <Route path="/seller" element={<SellerLayout />}>
 
         <Route path="dashboard" element={<SellerDashboard />} />
@@ -76,7 +77,9 @@ function App() {
 
          <Route path="history" element={<StockHistory />} />
 
-         <Route path="sales" element={<CreateSale />} />
+         {/*Sales Module*/}
+
+         <Route path="sales/create" element={<CreateSale />} />
 
          <Route path="payments" element={<VendorPaymentList />} />
 

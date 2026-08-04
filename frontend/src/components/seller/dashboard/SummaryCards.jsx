@@ -1,61 +1,76 @@
 import {
     FaBoxes,
     FaTint,
-    FaClock
+    FaExclamationTriangle
 } from "react-icons/fa";
 
-export default function SummaryCards({ inventory }) {
 
-    const totalMilk = inventory.reduce(
+export default function SummaryCards({dashboard}){
 
-        (total, item) =>
 
-            total + Number(item.availableQuantity),
+    const cards=[
 
-        0
-
-    );
-
-    const milkTypes = inventory.length;
-
-    const lastUpdated = inventory.length > 0
-        ? "Today"
-        : "--";
-
-    const cards = [
 
         {
-            title: "Total Milk",
-            value: `${totalMilk} L`,
-            icon: <FaTint />
+
+            title:"Total Inventory",
+
+            value:dashboard?.totalInventory ?? 0,
+
+            icon:<FaBoxes/>
+
         },
 
-        {
-            title: "Milk Types",
-            value: milkTypes,
-            icon: <FaBoxes />
-        },
+
 
         {
-            title: "Last Updated",
-            value: lastUpdated,
-            icon: <FaClock />
+
+            title:"Milk Types",
+
+            value:dashboard?.totalMilkTypes ?? 0,
+
+            icon:<FaTint/>
+
+        },
+
+
+
+        {
+
+            title:"Low Stock Items",
+
+            value:dashboard?.lowStockItems ?? 0,
+
+            icon:<FaExclamationTriangle/>
+
         }
+
 
     ];
 
-    return (
+
+
+    return(
+
 
         <div className="summary-card-container">
 
+
             {
 
-                cards.map((card) => (
+
+                cards.map(card=>(
+
 
                     <div
+
                         key={card.title}
+
                         className="summary-card"
+
                     >
+
+
 
                         <div className="summary-icon">
 
@@ -63,7 +78,11 @@ export default function SummaryCards({ inventory }) {
 
                         </div>
 
+
+
+
                         <div className="summary-content">
+
 
                             <h4>
 
@@ -71,22 +90,32 @@ export default function SummaryCards({ inventory }) {
 
                             </h4>
 
+
+
                             <h2>
 
                                 {card.value}
 
                             </h2>
 
+
                         </div>
+
+
 
                     </div>
 
+
                 ))
+
 
             }
 
+
         </div>
 
+
     );
+
 
 }

@@ -1,0 +1,491 @@
+/* ==========================================
+   SELLER STOCK HISTORY - GREEN PREMIUM UI
+========================================== */
+
+
+.stock-history-page {
+
+    padding:30px;
+
+    min-height:calc(100vh - 80px);
+
+    background:
+
+    linear-gradient(
+
+        135deg,
+
+        #f6fff8,
+
+        #e8fff0
+
+    );
+
+}
+
+
+
+/* ==========================================
+   HEADER
+========================================== */
+
+
+.stock-history-header {
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    margin-bottom:30px;
+
+}
+
+
+
+.stock-history-header h1 {
+
+    font-size:32px;
+
+    font-weight:700;
+
+    margin:0;
+
+    color:#14532d;
+
+}
+
+
+
+.stock-history-header p {
+
+    margin-top:8px;
+
+    color:#64748b;
+
+    font-size:15px;
+
+}
+
+
+
+/* ==========================================
+   SEARCH BOX
+========================================== */
+
+
+.stock-history-header input {
+
+
+    width:300px;
+
+    height:45px;
+
+    padding:0 18px;
+
+    border:none;
+
+    outline:none;
+
+    border-radius:14px;
+
+    background:white;
+
+    font-size:14px;
+
+
+    box-shadow:
+
+    0 8px 25px rgba(22,163,74,0.15);
+
+
+    transition:.3s;
+
+}
+
+
+
+.stock-history-header input:focus {
+
+
+    transform:translateY(-2px);
+
+
+    box-shadow:
+
+    0 10px 30px rgba(22,163,74,0.30);
+
+
+}
+
+
+
+/* ==========================================
+   TABLE CARD
+========================================== */
+
+
+.history-table-card {
+
+
+    background:
+
+    rgba(255,255,255,0.88);
+
+
+    -webkit-backdrop-filter:blur(15px);
+
+    backdrop-filter:blur(15px);
+
+
+    border-radius:22px;
+
+
+    padding:25px;
+
+
+    box-shadow:
+
+
+    0 15px 40px rgba(22,163,74,0.12);
+
+
+    overflow:hidden;
+
+
+}
+
+
+
+/* ==========================================
+   TABLE
+========================================== */
+
+
+.history-table-card table {
+
+
+    width:100%;
+
+
+    border-collapse:separate;
+
+
+    border-spacing:0 12px;
+
+
+}
+
+
+
+.history-table-card thead th {
+
+
+    text-align:center;
+
+
+    padding:14px 18px;
+
+
+    color:#1d1d1e;
+
+
+    font-size:14px;
+
+
+    text-transform:uppercase;
+
+
+    letter-spacing:.2px;
+
+
+}
+
+
+
+
+.history-table-card tbody tr {
+
+
+    background:white;
+
+
+    transition:.3s;
+
+
+    box-shadow:
+
+
+    0 5px 15px rgba(22,163,74,0.08);
+
+
+}
+
+
+
+.history-table-card tbody tr:hover {
+
+
+    transform:translateY(-4px);
+
+
+    box-shadow:
+
+
+    0 12px 30px rgba(22,163,74,0.20);
+
+
+}
+
+
+
+
+.history-table-card td {
+
+
+    padding:18px;
+
+
+    color:#334155;
+
+
+    font-size:14px;
+
+
+}
+
+
+
+.history-table-card td:first-child {
+
+
+    border-radius:14px 0 0 14px;
+
+
+}
+
+
+
+.history-table-card td:last-child {
+
+
+    border-radius:0 14px 14px 0;
+
+
+}
+
+
+
+/* ==========================================
+   ACTION BADGES
+========================================== */
+
+
+.status {
+
+
+    padding:7px 16px;
+
+
+    border-radius:30px;
+
+
+    font-size:12px;
+
+
+    font-weight:700;
+
+
+    display:inline-flex;
+
+
+    align-items:center;
+
+
+    gap:5px;
+
+
+}
+
+
+
+/* ADDED */
+
+
+.status.added {
+
+
+    background:
+
+
+    linear-gradient(
+
+        135deg,
+
+        #dcfce7,
+
+        #bbf7d0
+
+    );
+
+
+    color:#15803d;
+
+
+}
+
+
+
+/* REDUCED */
+
+
+.status.reduced {
+
+
+    background:
+
+
+    linear-gradient(
+
+        135deg,
+
+        #fee2e2,
+
+        #fecaca
+
+    );
+
+
+    color:#dc2626;
+
+
+}
+
+
+
+
+/* ==========================================
+   DATE STYLE
+========================================== */
+
+
+.history-table-card td:first-child {
+
+
+    color:#16a34a;
+
+
+    font-weight:600;
+
+
+}
+
+
+
+
+
+/* ==========================================
+   EMPTY STATE
+========================================== */
+
+
+.history-table-card td[colspan] {
+
+
+    padding:50px;
+
+
+    text-align:center;
+
+
+    color:#94a3b8;
+
+
+    font-size:16px;
+
+
+}
+
+
+
+
+/* ==========================================
+   LOADING
+========================================== */
+
+
+.stock-history-page h3 {
+
+
+    background:white;
+
+
+    padding:40px;
+
+
+    text-align:center;
+
+
+    border-radius:20px;
+
+
+    color:#16a34a;
+
+
+    box-shadow:
+
+
+    0 15px 35px rgba(22,163,74,0.12);
+
+
+}
+
+
+
+
+
+/* ==========================================
+   MOBILE RESPONSIVE
+========================================== */
+
+
+@media(max-width:900px){
+
+
+    .stock-history-header{
+
+
+        flex-direction:column;
+
+
+        align-items:flex-start;
+
+
+        gap:20px;
+
+
+    }
+
+
+
+    .stock-history-header input{
+
+
+        width:100%;
+
+
+    }
+
+
+
+    .history-table-card{
+
+
+        overflow-x:auto;
+
+
+    }
+
+
+}
