@@ -32,7 +32,7 @@ import ReduceStock from "./components/seller/inventory/ReduceStock";
 import StockHistory from "./components/seller/inventory/StockHistory";
 import CreateSale from "./components/seller/sales/CreateSale";
 import VendorPaymentList from "./components/seller/payments/VendorPaymentList";
-
+import MilkSupplyVerification from "./components/seller/payments/MilkSupplyVerification";
 
 function App() {
   return (
@@ -82,6 +82,8 @@ function App() {
          <Route path="sales" element={<CreateSale />} />
 
          <Route path="payments" element={<VendorPaymentList />} />
+
+         <Route path="/seller/verify-supply" element={<MilkSupplyVerification/>} />
 
         </Route>
 

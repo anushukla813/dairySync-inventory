@@ -8,32 +8,33 @@ import {
 import {
     FaSearch,
     FaWallet,
-    FaMoneyBillWave,
     FaUsers,
-    FaReceipt,
-    FaEye
+    FaCheckCircle
 } from "react-icons/fa";
 
 
 import {
     getAllMilkSupplies,
-    createPayment
+    createPayment,
+    verifyMilkSupply
 } from "../../../services/sellerService";
 
 
 import "../../../styles/seller/vendorPayment.css";
 
 
+
 export default function VendorPaymentList() {
 
 
-    const [search,setSearch] = useState("");
-
     const [payments,setPayments] = useState([]);
+
+    const [search,setSearch] = useState("");
 
     const [loading,setLoading] = useState(true);
 
-    const [payingId,setPayingId] = useState(null);
+    const [processing,setProcessing] = useState(null);
+
 
 
 
@@ -45,11 +46,18 @@ export default function VendorPaymentList() {
 
 
 
+
+
+
     const loadPayments = async()=>{
+
 
         try{
 
-            const response = await getAllMilkSupplies();
+
+            const response =
+                await getAllMilkSupplies();
+
 
             console.log(
                 "Milk Supply Response:",
@@ -65,32 +73,137 @@ export default function VendorPaymentList() {
         }
         catch(error){
 
+
             console.error(
                 "Payment Fetch Error:",
                 error
             );
 
+
             setPayments([]);
+
 
         }
         finally{
 
+
             setLoading(false);
 
+
         }
+
 
     };
 
 
 
+
+
+
+
+
+
+    // ================================
+    // VERIFY MILK SUPPLY
+    // ================================
+
+
+    const handleVerification = async(item)=>{
+
+
+        const confirm =
+            window.confirm(
+
+                `Verify ${item.milkType} supply from ${item.vendorName}?`
+
+            );
+
+
+        if(!confirm){
+
+            return;
+
+        }
+
+
+
+        try{
+
+
+            setProcessing(
+                item.supplyId
+            );
+
+
+
+            await verifyMilkSupply(
+
+                item.supplyId
+
+            );
+
+
+
+            alert(
+                "Milk supply verified successfully"
+            );
+
+
+
+            await loadPayments();
+
+
+
+        }
+        catch(error){
+
+
+            console.error(
+                "Verification Error:",
+                error
+            );
+
+
+            alert(
+                "Verification failed"
+            );
+
+
+        }
+        finally{
+
+
+            setProcessing(null);
+
+
+        }
+
+
+    };
+
+
+
+
+
+
+
+
+
+    // ================================
+    // CREATE PAYMENT
+    // ================================
+
+
     const handlePayment = async(item)=>{
 
 
-        const confirmPayment = window.confirm(
+        const confirmPayment =
+            window.confirm(
 
-            `Pay ₹${item.totalAmount} to ${item.vendorName}?`
+                `Pay ₹${item.totalAmount} to ${item.vendorName}?`
 
-        );
+            );
+
 
 
         if(!confirmPayment){
@@ -104,7 +217,9 @@ export default function VendorPaymentList() {
         try{
 
 
-            setPayingId(item.supplyId);
+            setProcessing(
+                item.supplyId
+            );
 
 
 
@@ -121,28 +236,35 @@ export default function VendorPaymentList() {
 
 
                 paymentDate:
+
                 new Date()
+
                 .toISOString()
+
                 .split("T")[0]
+
 
             };
 
 
 
             const response =
-                await createPayment(paymentData);
+                await createPayment(
+                    paymentData
+                );
 
 
 
             alert(
 
-                `Payment Successful\n\nReceipt No: ${response.receiptNumber}`
+                `Payment Successful\nReceipt No: ${response.receiptNumber}`
 
             );
 
 
 
-            loadPayments();
+            await loadPayments();
+
 
 
         }
@@ -151,15 +273,19 @@ export default function VendorPaymentList() {
 
             console.error(
 
-                "Payment Creation Error:",
-                error.response?.data
+                "Payment Error:",
+                error.response?.data || error
 
             );
 
 
+
             alert(
+
                 error.response?.data?.message ||
+
                 "Payment failed"
+
             );
 
 
@@ -167,7 +293,7 @@ export default function VendorPaymentList() {
         finally{
 
 
-            setPayingId(null);
+            setProcessing(null);
 
 
         }
@@ -175,17 +301,36 @@ export default function VendorPaymentList() {
 
     };
 
+
+
+
+
+
+
+
+
+
+
     const filteredPayments =
-        (payments || [])
-        .filter(item=>
+
+        payments.filter(item =>
 
             item.vendorName
+
             ?.toLowerCase()
+
             .includes(
+
                 search.toLowerCase()
+
             )
 
         );
+
+
+
+
+
 
 
 
@@ -200,6 +345,7 @@ export default function VendorPaymentList() {
                 (sum,item)=>
 
                     sum +
+
                     Number(
                         item.totalAmount || 0
                     ),
@@ -215,7 +361,9 @@ export default function VendorPaymentList() {
             new Set(
 
                 payments.map(
+
                     item=>item.vendorId
+
                 )
 
             ).size;
@@ -224,18 +372,22 @@ export default function VendorPaymentList() {
 
         return {
 
+
             totalAmount,
 
-            paidAmount:0,
-
-            pendingAmount:totalAmount,
 
             vendors
+
 
         };
 
 
     },[payments]);
+
+
+
+
+
 
 
 
@@ -252,17 +404,20 @@ export default function VendorPaymentList() {
 
                 <div>
 
+
                     <h1>
                         Vendor Payments
                     </h1>
 
 
                     <p>
-                        Monitor vendor milk supply payments and transactions.
+                        Verify vendor milk supply and manage payments.
                     </p>
 
 
                 </div>
+
+
 
 
 
@@ -280,13 +435,11 @@ export default function VendorPaymentList() {
 
                         value={search}
 
-
-                        onChange={(e)=>
-
+                        onChange={
+                            (e)=>
                             setSearch(
                                 e.target.value
                             )
-
                         }
 
                     />
@@ -295,7 +448,12 @@ export default function VendorPaymentList() {
                 </div>
 
 
+
             </div>
+
+
+
+
 
 
 
@@ -304,17 +462,21 @@ export default function VendorPaymentList() {
             <div className="payment-summary-grid">
 
 
+
                 <div className="payment-summary-card">
 
 
                     <div className="summary-icon">
 
+
                         <FaWallet/>
+
 
                     </div>
 
 
                     <div>
+
 
                         <h3>
 
@@ -337,37 +499,6 @@ export default function VendorPaymentList() {
 
 
 
-                <div className="payment-summary-card">
-
-
-                    <div className="summary-icon">
-
-                        <FaMoneyBillWave/>
-
-                    </div>
-
-
-                    <div>
-
-                        <h3>
-
-                            ₹ {summary.paidAmount.toLocaleString()}
-
-                        </h3>
-
-
-                        <span>
-                            Paid
-                        </span>
-
-
-                    </div>
-
-
-                </div>
-
-
-
 
 
                 <div className="payment-summary-card">
@@ -375,45 +506,15 @@ export default function VendorPaymentList() {
 
                     <div className="summary-icon">
 
-                        <FaReceipt/>
-
-                    </div>
-
-
-                    <div>
-
-                        <h3>
-
-                            ₹ {summary.pendingAmount.toLocaleString()}
-
-                        </h3>
-
-
-                        <span>
-                            Pending
-                        </span>
-
-
-                    </div>
-
-
-                </div>
-
-
-
-
-
-                <div className="payment-summary-card">
-
-
-                    <div className="summary-icon">
 
                         <FaUsers/>
 
+
                     </div>
 
 
                     <div>
+
 
                         <h3>
 
@@ -434,7 +535,12 @@ export default function VendorPaymentList() {
 
 
 
+
+
             </div>
+
+
+
 
 
 
@@ -444,11 +550,14 @@ export default function VendorPaymentList() {
             <div className="payment-table-card">
 
 
+
                 <div className="payment-table-header">
+
 
                     <h2>
                         Vendor Milk Supplies
                     </h2>
+
 
                 </div>
 
@@ -456,8 +565,12 @@ export default function VendorPaymentList() {
 
 
 
+
+
                 {
+
                     loading ?
+
 
                     <h3>
                         Loading payments...
@@ -467,6 +580,7 @@ export default function VendorPaymentList() {
                     :
 
 
+
                     <table>
 
 
@@ -474,6 +588,7 @@ export default function VendorPaymentList() {
 
 
                             <tr>
+
 
                                 <th>
                                     Vendor
@@ -501,7 +616,12 @@ export default function VendorPaymentList() {
 
 
                                 <th>
-                                    Action
+                                    Verification
+                                </th>
+
+
+                                <th>
+                                    Payment
                                 </th>
 
 
@@ -509,6 +629,7 @@ export default function VendorPaymentList() {
 
 
                         </thead>
+
 
 
 
@@ -522,7 +643,9 @@ export default function VendorPaymentList() {
                         filteredPayments.length > 0 ?
 
 
+
                         filteredPayments.map(item=>(
+
 
 
                             <tr key={item.supplyId}>
@@ -538,110 +661,255 @@ export default function VendorPaymentList() {
 
 
 
+
                                 <td>
+
                                     {item.milkType}
+
                                 </td>
 
 
 
+
+
                                 <td>
+
                                     {item.quantity} L
+
                                 </td>
 
 
 
+
+
                                 <td>
+
                                     ₹ {Number(item.totalAmount).toLocaleString()}
+
                                 </td>
+
+
+
 
 
 
                                 <td>
 
+
                                     {
-                                        new Date(
-                                            item.supplyDate
-                                        )
-                                        .toLocaleDateString(
-                                            "en-IN"
-                                        )
+
+                                    new Date(
+
+                                        item.supplyDate
+
+                                    )
+
+                                    .toLocaleDateString(
+
+                                        "en-IN"
+
+                                    )
+
                                     }
 
+
                                 </td>
+
+
+
+
+
 
 
 
                                 <td>
 
+
+
+                                {
+
+
+                                item.verificationStatus === "Verified"
+
+
+
+                                ?
+
+
+                                <span className="paid-badge">
+
+
+                                    <FaCheckCircle/>
+
+                                    Verified
+
+
+                                </span>
+
+
+
+                                :
+
+
+
+                                <button
+
+                                className="view-button"
+
+
+                                disabled={
+                                    processing===item.supplyId
+                                }
+
+
+                                onClick={()=>
+
+
+                                    handleVerification(item)
+
+                                }
+
+
+                                >
+
+
                                     {
-                                        item.paymentStatus === "Paid"?
 
-                                        (
-                                            <div className="paid-payment">
-                                                <span className= "paid-badge">
-                                                    Paid
-                                                </span>
+                                    processing===item.supplyId
 
-                                                <small>
-                                                    Receipt:
-                                                    <br/>
+                                    ?
 
-                                                    {item.receiptNumber}
-                                                </small>
+                                    "Processing..."
 
-                                            </div>
+                                    :
 
-                                        )
-                                        :
-                                        (
-                                         <button className="view-button"
-                                                
-                                                disabled={
-                                                    payingId === item.supplyId
-                                                }
+                                    "Verify"
 
-                                                onClick={()=>
-                                                    handlePayment(item)
-                                                }
-                                         >
-
-                                            <FaEye/>
-                                            {
-                                                payingId === item.supplyId
-                                                ?
-                                                "Processing..."
-                                                :
-                                                "Pay"
-                                            }
-
-                                         </button>   
-                                        )
                                     }
+
+
+                                </button>
+
+
+
+                                }
 
 
 
                                 </td>
+
+
+
+
+
+
+
+
+
+                                <td>
+
+
+                                {
+
+
+                                item.paymentStatus === "Paid"
+
+
+                                ?
+
+
+
+                                <span className="paid-badge">
+
+                                    Paid
+
+                                </span>
+
+
+
+                                :
+
+
+
+                                <button
+
+
+                                className="view-button"
+
+
+                                disabled={
+                                    processing===item.supplyId
+                                }
+
+
+                                onClick={()=>
+
+
+                                    handlePayment(item)
+
+                                }
+
+
+                                >
+
+
+                                    {
+
+                                    processing===item.supplyId
+
+                                    ?
+
+                                    "Processing..."
+
+                                    :
+
+                                    "Pay"
+
+                                    }
+
+
+                                </button>
+
+
+
+                                }
+
+
+
+                                </td>
+
+
+
+
 
 
 
                             </tr>
 
 
+
                         ))
+
 
 
                         :
 
 
+
                         <tr>
 
-                            <td colSpan="6">
+
+                            <td colSpan="7">
+
 
                                 No milk supply found
 
+
                             </td>
 
+
                         </tr>
+
 
 
                         }
@@ -651,12 +919,17 @@ export default function VendorPaymentList() {
                         </tbody>
 
 
+
                     </table>
+
 
                 }
 
 
+
             </div>
+
+
 
 
 
@@ -664,5 +937,6 @@ export default function VendorPaymentList() {
 
 
     );
+
 
 }

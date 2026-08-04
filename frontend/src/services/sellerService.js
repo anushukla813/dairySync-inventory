@@ -476,3 +476,41 @@ export const getVendorPayments = async (vendorId) => {
     }
 
 };
+
+// =====================================
+// VERIFY MILK SUPPLY
+// =====================================
+
+export const verifyMilkSupply = async (supplyId) => {
+
+    try {
+
+        const response = await api.put(
+
+            `/milk-supplies/${supplyId}/verify`,
+
+            {},
+
+            {
+                headers:getAuthHeader()
+            }
+
+        );
+
+
+        return response.data.data || response.data;
+
+
+    }
+    catch(error){
+
+        console.error(
+            "Verify Milk Supply Error:",
+            error
+        );
+
+        throw error;
+
+    }
+
+};
