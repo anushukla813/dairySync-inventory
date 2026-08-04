@@ -5,6 +5,7 @@ import com.dairysync.backend.dto.response.PaymentResponse;
 import com.dairysync.backend.service.PaymentService;
 import jakarta.validation.Valid;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.security.core.Authentication;
 
 import java.util.List;
 
@@ -30,6 +31,24 @@ public class PaymentController {
                 response
         );
     }
+
+    @GetMapping("/vendor")
+     public ApiResponse<List<PaymentResponse>> getLoggedInVendorPayments(
+        Authentication authentication) {
+
+        List<PaymentResponse> response =
+            paymentService.getLoggedInVendorPayments(
+                    authentication.getName()
+            );
+
+        return ApiResponse.success(
+            "Vendor payments fetched successfully",
+            response
+        );
+
+    } 
+
+
     @GetMapping("/vendors/{vendorId}")
     public ApiResponse<List<PaymentResponse>> getPaymentByVendor(
             @PathVariable Long vendorId) {

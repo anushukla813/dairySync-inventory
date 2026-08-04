@@ -3,6 +3,7 @@ package com.dairysync.backend.dto.response;
 
 import com.dairysync.backend.model.enums.Shift;
 import com.dairysync.backend.model.enums.VerificationStatus;
+import com.dairysync.backend.model.enums.PaymentStatus;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -24,6 +25,9 @@ public class MilkSupplyResponse {
     private VerificationStatus verificationStatus;
 
     private BigDecimal totalAmount;
+    private PaymentStatus paymentStatus;
+
+    private String receiptNumber;
 
     public MilkSupplyResponse(){
     }
@@ -118,8 +122,6 @@ public class MilkSupplyResponse {
         this.shift = shift;
     }
 
-
-
     public VerificationStatus getVerificationStatus() {
         return verificationStatus;
     }
@@ -135,4 +137,22 @@ public class MilkSupplyResponse {
     public void setTotalAmount(BigDecimal totalAmount) {
         this.totalAmount = totalAmount;
     }
+
+    public PaymentStatus getPaymentStatus() {
+    return paymentStatus;
+    }   
+
+    public void setPaymentStatus(PaymentStatus paymentStatus) {
+       this.paymentStatus = paymentStatus;
+    }
+
+
+    public String getReceiptNumber() {
+    return receiptNumber;
+    }
+
+    public void setReceiptNumber(String receiptNumber) {
+       this.receiptNumber = receiptNumber;
+    }
+
 }

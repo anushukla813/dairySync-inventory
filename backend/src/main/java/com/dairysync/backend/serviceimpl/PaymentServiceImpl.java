@@ -12,6 +12,7 @@ import com.dairysync.backend.repository.VendorRepository;
 import com.dairysync.backend.service.PaymentService;
 import org.springframework.stereotype.Service;
 
+import java.util.stream.Collectors;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -36,6 +37,10 @@ public class PaymentServiceImpl implements PaymentService {
 
         Vendor vendor = vendorRepository.findById(request.getVendorId())
                 .orElseThrow(() -> new RuntimeException("Vendor not found"));
+
+            if (paymentRepository.findByMilkSupplySupplyId(request.getSupplyId()).isPresent()) {
+               throw new RuntimeException("Payment already exists for this milk supply");
+        }
 
         MilkSupply milkSupply = milkSupplyRepository.findById(request.getSupplyId())
                 .orElseThrow(() -> new RuntimeException("Milk Supply not found"));
@@ -89,6 +94,43 @@ public class PaymentServiceImpl implements PaymentService {
         }
 
         return responseList;
+    }
+
+    @Override
+    public List<PaymentResponse> getLoggedInVendorPayments(String email) {
+        
+        Vendor vendor = vendorRepository.findByUser_Email(email)
+            .orElseThrow(() -> new RuntimeException("Vendor not found"));
+            
+            List<Payment> payments =
+            paymentRepository.findByVendorVendorId(vendor.getVendorId());
+
+            return payments.stream()
+                .map(payment -> {
+
+                PaymentResponse response = new PaymentResponse();
+                response.setPaymentId(payment.getPaymentId());
+                response.setReceiptNumber(payment.getReceiptNumber());
+                response.setAmount(payment.getAmount());
+                response.setPaymentDate(payment.getPaymentDate());
+                response.setPaymentStatus(payment.getPaymentStatus());
+                response.setVendorName(
+                        payment.getVendor()
+                                .getUser()
+                                .getFullName()
+                );
+
+                response.setMilkType(
+                        payment.getMilkSupply()
+                                .getMilkType()
+                                .getMilkName()
+                );
+
+                return response;
+
+            })
+
+            .collect(Collectors.toList());
     }
 
     @Override

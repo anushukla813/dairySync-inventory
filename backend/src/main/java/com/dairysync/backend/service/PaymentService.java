@@ -10,5 +10,10 @@ public interface PaymentService {
     PaymentResponse createPayment(PaymentRequest request);
 
     List<PaymentResponse> getPaymentByVendor(Long vendorId);
+
+    // NEW
+    List<PaymentResponse> getLoggedInVendorPayments(String email);
+
     PaymentResponse getPaymentById(Long paymentId);
+
 }
