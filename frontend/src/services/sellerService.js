@@ -427,17 +427,12 @@ export const createPayment = async (paymentData) => {
     try {
 
         const response = await api.post(
-
             "/payments",
-
             paymentData,
-
             {
-                headers: getAuthHeader()
+                headers:getAuthHeader()
             }
-
         );
-
 
         return response.data.data;
 
@@ -446,15 +441,13 @@ export const createPayment = async (paymentData) => {
 
         console.error(
             "Create Payment Error:",
-            error
+            error.response?.data || error
         );
 
         throw error;
-
     }
 
 };
-
 
 
 export const getVendorPayments = async (vendorId) => {

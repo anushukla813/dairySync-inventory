@@ -4,22 +4,28 @@ import {
     FaTint,
     FaRupeeSign,
     FaChartLine,
-    FaCalendarAlt
+    FaCalendarAlt,
+    FaReceipt
 } from "react-icons/fa";
 
 import { getMilkHistory } from "../../services/vendorService";
 
 import "../../styles/vendor/supplyHistory.css";
 
+
 export default function SupplyHistory() {
 
+
     const [history, setHistory] = useState([]);
+
 
     useEffect(() => {
 
         loadHistory();
 
     }, []);
+
+
 
     const loadHistory = async () => {
 
@@ -29,67 +35,100 @@ export default function SupplyHistory() {
 
             console.log("Milk History:", data);
 
-            setHistory(data);
+            setHistory(data || []);
 
         }
 
-        catch (error) {
+        catch(error){
 
             console.log(error);
+
+            setHistory([]);
 
         }
 
     };
 
+
+
     const totalSupply = history.reduce(
 
-        (sum, item) => sum + Number(item.quantity),
+        (sum,item)=>
+            sum + Number(item.quantity || 0),
 
         0
 
     );
+
+
 
     const totalAmount = history.reduce(
 
-        (sum, item) => sum + Number(item.totalAmount),
+        (sum,item)=>
+            sum + Number(item.totalAmount || 0),
 
         0
 
     );
 
+
+
     const avgFat = history.length
 
-        ? (
+        ?
+
+        (
             history.reduce(
-                (sum, item) =>
-                    sum + Number(item.fatPercentage),
+
+                (sum,item)=>
+                    sum + Number(item.fatPercentage || 0),
+
                 0
+
             ) / history.length
+
         ).toFixed(2)
 
-        : 0;
+        :
+
+        0;
+
+
 
     return (
 
         <div className="history-page">
 
+
             <div className="history-container">
+
 
                 <div className="history-header">
 
+
                     <div>
 
-                        <h1>Supply History</h1>
+                        <h1>
+                            Supply History
+                        </h1>
+
 
                         <p>
                             Track your previous milk supply records
                         </p>
 
+
                     </div>
+
 
                 </div>
 
+
+
+
+
                 <div className="history-summary">
+
 
                     <div className="history-card">
 
@@ -97,13 +136,21 @@ export default function SupplyHistory() {
 
                         <div>
 
-                            <h3>Total Supply</h3>
+                            <h3>
+                                Total Supply
+                            </h3>
 
-                            <span>{totalSupply} L</span>
+                            <span>
+                                {totalSupply} L
+                            </span>
 
                         </div>
 
                     </div>
+
+
+
+
 
                     <div className="history-card">
 
@@ -111,13 +158,21 @@ export default function SupplyHistory() {
 
                         <div>
 
-                            <h3>Total Earnings</h3>
+                            <h3>
+                                Total Earnings
+                            </h3>
 
-                            <span>₹{totalAmount}</span>
+                            <span>
+                                ₹{totalAmount}
+                            </span>
 
                         </div>
 
                     </div>
+
+
+
+
 
                     <div className="history-card">
 
@@ -125,13 +180,21 @@ export default function SupplyHistory() {
 
                         <div>
 
-                            <h3>Average Fat</h3>
+                            <h3>
+                                Average Fat
+                            </h3>
 
-                            <span>{avgFat}%</span>
+                            <span>
+                                {avgFat}%
+                            </span>
 
                         </div>
 
                     </div>
+
+
+
+
 
                     <div className="history-card">
 
@@ -139,27 +202,40 @@ export default function SupplyHistory() {
 
                         <div>
 
-                            <h3>Total Entries</h3>
+                            <h3>
+                                Total Entries
+                            </h3>
 
-                            <span>{history.length}</span>
+                            <span>
+                                {history.length}
+                            </span>
 
                         </div>
 
                     </div>
 
+
+
                 </div>
+
+
+
+
+
+
 
                 <div className="history-table-container">
 
+
                     <table>
 
+
                         <thead>
+
 
                             <tr>
 
                                 <th>Date</th>
-
-                                <th>Time</th>
 
                                 <th>Milk Type</th>
 
@@ -173,70 +249,231 @@ export default function SupplyHistory() {
 
                                 <th>Amount</th>
 
-                                <th>Status</th>
+                                <th>Verification</th>
+
+                                <th>Payment</th>
+
+                                <th>Receipt</th>
+
 
                             </tr>
 
+
                         </thead>
+
+
+
+
 
                         <tbody>
 
-                            {
 
-                                history.map((item) => (
+                        {
 
-                                    <tr key={item.supplyId}>
+                            history.length > 0 ?
 
-                                        <td>{item.supplyDate}</td>
 
-                                        <td>{item.supplyTime}</td>
+                            history.map((item)=>(
 
-                                        <td>{item.milkType}</td>
 
-                                        <td>{item.quantity} L</td>
+                                <tr key={item.supplyId}>
 
-                                        <td>{item.fatPercentage}</td>
 
-                                        <td>{item.snfPercentage}</td>
+                                    <td>
+                                        {item.supplyDate}
+                                    </td>
 
-                                        <td>{item.shift}</td>
 
-                                        <td>₹{item.totalAmount}</td>
 
-                                        <td>
+                                    <td>
+                                        {item.milkType}
+                                    </td>
 
-                                            <span
 
-                                                className={
-                                                    item.verificationStatus === "Verified"
-                                                        ? "status approved"
-                                                        : "status pending"
-                                                }
 
-                                            >
+                                    <td>
+                                        {item.quantity} L
+                                    </td>
 
-                                                {item.verificationStatus}
+
+
+                                    <td>
+                                        {item.fatPercentage}
+                                    </td>
+
+
+
+                                    <td>
+                                        {item.snfPercentage}
+                                    </td>
+
+
+
+                                    <td>
+                                        {item.shift}
+                                    </td>
+
+
+
+                                    <td>
+                                        ₹{item.totalAmount}
+                                    </td>
+
+
+
+
+
+                                    {/* Verification Status */}
+
+                                    <td>
+
+
+                                        <span
+
+                                        className={
+                                            item.verificationStatus === "Verified"
+                                            ?
+                                            "status approved"
+                                            :
+                                            "status pending"
+                                        }
+
+                                        >
+
+                                            {item.verificationStatus}
+
+                                        </span>
+
+
+                                    </td>
+
+
+
+
+
+
+
+                                    {/* Payment Status */}
+
+                                    <td>
+
+
+                                        {
+
+                                            item.paymentStatus === "Paid"
+
+
+                                            ?
+
+
+                                            <span className="status approved">
+
+                                                Paid
 
                                             </span>
 
-                                        </td>
 
-                                    </tr>
+                                            :
 
-                                ))
 
-                            }
+                                            <span className="status pending">
+
+                                                Pending
+
+                                            </span>
+
+
+                                        }
+
+
+                                    </td>
+
+
+
+
+
+
+                                    {/* Receipt Number */}
+
+                                    <td>
+
+
+                                        {
+
+                                            item.receiptNumber ?
+
+
+                                            <span>
+
+                                                <FaReceipt/>
+
+                                                {" "}
+
+                                                {item.receiptNumber}
+
+                                            </span>
+
+
+                                            :
+
+
+                                            "Not Generated"
+
+
+                                        }
+
+
+                                    </td>
+
+
+
+                                </tr>
+
+
+
+                            ))
+
+
+
+                            :
+
+
+                            <tr>
+
+                                <td colSpan="10">
+
+                                    No supply history found
+
+                                </td>
+
+                            </tr>
+
+
+
+                        }
+
+
 
                         </tbody>
 
+
+
                     </table>
+
+
 
                 </div>
 
+
+
             </div>
+
+
 
         </div>
 
+
     );
+
 
 }

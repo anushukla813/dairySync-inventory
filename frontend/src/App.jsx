@@ -79,7 +79,7 @@ function App() {
 
          {/*Sales Module*/}
 
-         <Route path="sales/create" element={<CreateSale />} />
+         <Route path="sales" element={<CreateSale />} />
 
          <Route path="payments" element={<VendorPaymentList />} />
 

@@ -152,12 +152,13 @@ export default function VendorPaymentList() {
             console.error(
 
                 "Payment Creation Error:",
-                error
+                error.response?.data
 
             );
 
 
             alert(
+                error.response?.data?.message ||
                 "Payment failed"
             );
 
@@ -173,9 +174,6 @@ export default function VendorPaymentList() {
 
 
     };
-
-
-
 
     const filteredPayments =
         (payments || [])
@@ -575,36 +573,51 @@ export default function VendorPaymentList() {
 
                                 <td>
 
+                                    {
+                                        item.paymentStatus === "Paid"?
 
-                                    <button
+                                        (
+                                            <div className="paid-payment">
+                                                <span className= "paid-badge">
+                                                    Paid
+                                                </span>
 
-                                        className="view-button"
+                                                <small>
+                                                    Receipt:
+                                                    <br/>
 
+                                                    {item.receiptNumber}
+                                                </small>
 
-                                        disabled={
-                                            payingId === item.supplyId
-                                        }
+                                            </div>
 
+                                        )
+                                        :
+                                        (
+                                         <button className="view-button"
+                                                
+                                                disabled={
+                                                    payingId === item.supplyId
+                                                }
 
-                                        onClick={()=>
-                                            handlePayment(item)
-                                        }
+                                                onClick={()=>
+                                                    handlePayment(item)
+                                                }
+                                         >
 
-                                    >
+                                            <FaEye/>
+                                            {
+                                                payingId === item.supplyId
+                                                ?
+                                                "Processing..."
+                                                :
+                                                "Pay"
+                                            }
 
-                                        <FaEye/>
+                                         </button>   
+                                        )
+                                    }
 
-
-                                        {
-                                            payingId === item.supplyId
-                                            ?
-                                            "Processing..."
-                                            :
-                                            "Pay"
-                                        }
-
-
-                                    </button>
 
 
                                 </td>

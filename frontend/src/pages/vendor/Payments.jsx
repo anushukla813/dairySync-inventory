@@ -71,7 +71,7 @@ export default function Payment(){
                     0
                 );
 
-            const completePayments = data.filter(
+            const completedPayments = data.filter(
              
                 payment =>
                 payment.paymentStatus === "Paid"
@@ -100,9 +100,6 @@ export default function Payment(){
 
 
     },[]);
-
-
-
 
     return(
 

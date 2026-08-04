@@ -397,6 +397,42 @@ tbody tr:hover{
 
 }
 
+.paid-payment{
+
+    display:flex;
+
+    flex-direction:column;
+
+    gap:6px;
+
+}
+
+
+.paid-badge{
+
+    background:#d1fae5;
+
+    color:#047857;
+
+    padding:6px 12px;
+
+    border-radius:20px;
+
+    font-size:14px;
+
+    font-weight:600;
+
+}
+
+
+.paid-payment small{
+
+    color:#666;
+
+    font-size:12px;
+
+}
+
 /* ===========================================
    RESPONSIVE
 =========================================== */

@@ -232,13 +232,8 @@ export const getMilkTypes = async()=>{
 
 };
 
-
-
-
-
-
 /* ===========================================
-   GET VENDOR PAYMENTS
+   GET LOGGED IN VENDOR PAYMENTS
 =========================================== */
 
 
@@ -248,34 +243,27 @@ export const getVendorPayments = async()=>{
     const user = getLoggedUser();
 
 
-    const response =
-        await api.get(
+    const response = await api.get(
 
-            "/payments",
+        "/payments/vendor",
 
-            {
+        {
 
-                headers:{
+            headers:{
 
-                    Authorization:
-                    `Bearer ${user.token}`
-
-                }
+                Authorization:
+                `Bearer ${user.token}`
 
             }
 
-        );
+        }
+
+    );
 
 
-    return response.data.data || response.data;
+    return response.data.data || [];
 
 };
-
-
-
-
-
-
 
 /* ===========================================
    GET VENDOR BY USER ID
@@ -311,10 +299,6 @@ async(userId)=>{
     return response.data.data || response.data;
 
 };
-
-
-
-
 
 
 /* ===========================================
