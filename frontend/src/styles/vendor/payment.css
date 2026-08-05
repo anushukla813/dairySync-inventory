@@ -243,9 +243,6 @@
 }
 
 
-
-
-
 .payment-table-container table{
 
 
@@ -263,13 +260,10 @@
 }
 
 
-
-
-
 .payment-table-container th{
 
 
-    text-align:left;
+    text-align:center;
 
 
     padding:16px;

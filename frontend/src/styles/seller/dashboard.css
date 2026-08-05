@@ -55,104 +55,6 @@
 
 }
 
-
-
-/* ===========================================
-   SUMMARY CARDS
-=========================================== */
-
-.summary-card-container{
-
-    display:grid;
-
-    grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
-
-    gap:24px;
-
-}
-
-.summary-card{
-
-    background:#ffffff;
-
-    border-radius:18px;
-
-    padding:24px;
-
-    display:flex;
-
-    align-items:center;
-
-    gap:20px;
-
-    box-shadow:0 8px 25px rgba(0,0,0,.08);
-
-    transition:.3s;
-
-}
-
-.summary-card:hover{
-
-    transform:translateY(-5px);
-
-    box-shadow:0 15px 35px rgba(0,0,0,.12);
-
-}
-
-.summary-icon{
-
-    width:65px;
-
-    height:65px;
-
-    border-radius:16px;
-
-    background:linear-gradient(135deg,#20C997,#198754);
-
-    color:white;
-
-    display:flex;
-
-    align-items:center;
-
-    justify-content:center;
-
-    font-size:26px;
-
-}
-
-.summary-content{
-
-    display:flex;
-
-    flex-direction:column;
-
-    gap:5px;
-
-}
-
-.summary-content h4{
-
-    color:#6B7280;
-
-    font-size:14px;
-
-    font-weight:500;
-
-}
-
-.summary-content h2{
-
-    color:#111827;
-
-    font-size:28px;
-
-    font-weight:700;
-
-}
-
-
-
 /* ===========================================
    INVENTORY SECTION
 =========================================== */
@@ -446,6 +348,34 @@
 .dashboard-error{
 
     color:#DC2626;
+
+}
+
+/* ===========================================
+   SELLER SUMMARY CARDS ALIGNMENT
+=========================================== */
+
+.seller-dashboard .dashboard-cards{
+
+    grid-template-columns:repeat(3,1fr);
+
+}
+
+/* ===========================================
+   SELLER DASHBOARD CARD IMAGES
+=========================================== */
+
+.seller-dashboard .kpi-image img{
+
+    object-fit:cover;
+    object-position:center;
+    width: 400px;
+    height: 200px;
+}
+
+.kpi-content{
+
+    padding:15px 22px;
 
 }
 

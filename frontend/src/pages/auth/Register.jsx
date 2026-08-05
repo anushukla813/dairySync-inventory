@@ -15,248 +15,653 @@ import {
 
 import { registerUser } from "../../services/authService";
 
+import boyImage from "../../assets/images/boy.png";
+
+
+
 export default function Register() {
+
 
   const navigate = useNavigate();
 
-  const [formData, setFormData] = useState({
 
-    fullName: "",
-    email: "",
-    password: "",
-    phone: "",
-    location: "",
-    role: ""
+
+  const [formData,setFormData] = useState({
+
+    fullName:"",
+    email:"",
+    password:"",
+    phone:"",
+    location:"",
+    role:""
 
   });
 
-  const [errors, setErrors] = useState({});
 
-  const handleChange = (e) => {
+
+  const [errors,setErrors] = useState({});
+
+
+
+
+
+  const handleChange=(e)=>{
+
 
     setFormData({
+
       ...formData,
-      [e.target.name]: e.target.value
+
+      [e.target.name]:e.target.value
+
     });
+
+
   };
 
-  const handleSubmit = async (e) => {
+
+
+
+
+
+  const handleSubmit=async(e)=>{
+
 
     e.preventDefault();
 
-    let newErrors = {};
 
-    if (!formData.fullName) {
-      newErrors.fullName = "Full name is required";
+
+    let newErrors={};
+
+
+
+    if(!formData.fullName){
+
+      newErrors.fullName="Full name is required";
+
     }
 
-    if (!formData.email) {
-      newErrors.email = "Email is required";
+
+
+    if(!formData.email){
+
+      newErrors.email="Email is required";
+
     }
 
-    if (!formData.password) {
-      newErrors.password = "Password is required";
+
+
+    if(!formData.password){
+
+      newErrors.password="Password is required";
+
     }
 
-    if (!formData.phone) {
-      newErrors.phone = "Phone number is required";
+
+
+    if(!formData.phone){
+
+      newErrors.phone="Phone number is required";
+
     }
 
-    if (!formData.location) {
-      newErrors.location = "Location is required";
+
+
+    if(!formData.location){
+
+      newErrors.location="Location is required";
+
     }
 
-    if (!formData.role) {
-      newErrors.role = "Select role";
+
+
+    if(!formData.role){
+
+      newErrors.role="Select role";
+
     }
+
+
 
     setErrors(newErrors);
-    
-    if (Object.keys(newErrors).length > 0) {
+
+
+
+
+    if(Object.keys(newErrors).length>0){
+
       return;
+
     }
-    
-    try {
-      
+
+
+
+
+
+
+    try{
+
+
       const data = await registerUser(formData);
-      console.log(data);
+
+
+
+      console.log(
+        "REGISTER RESPONSE:",
+        data
+      );
+
+
+
       alert("Registration Successful");
+
+
+
       navigate("/login");
-    
-    } catch (error) {
-      
-      console.log(error);
-      alert(error.message || "Registration Failed");
+
+
+
     }
+
+
+    catch(error){
+
+
+      console.log(
+        "REGISTER ERROR:",
+        error
+      );
+
+
+
+      alert(
+        error.message || "Registration Failed"
+      );
+
+
+    }
+
+
+
   };
 
-  return (
+
+
+
+
+
+
+  return(
+
 
     <div className="auth-page">
 
+
+
       <div className="auth-card">
 
-        <div className="auth-logo">
-          <FaUser />
+
+        {/* FORM SECTION */}
+
+
+
+
+        <div className="auth-form">
+
+
+
+
+
+
+          <div className="auth-logo">
+
+
+            <FaUser/>
+
+
+          </div>
+
+
+
+
+
+
+
+          <h2>
+
+            Create Account
+
+          </h2>
+
+
+
+
+
+
+
+          <p>
+
+            Register as vendor or seller
+
+          </p>
+
+
+
+
+
+
+
+
+          <form onSubmit={handleSubmit}>
+
+
+
+
+
+
+            <div className="input-group">
+
+
+
+              <FaUser className="input-icon"/>
+
+
+
+
+              <input
+
+                type="text"
+
+                name="fullName"
+
+                placeholder="Full Name"
+
+                value={formData.fullName}
+
+                onChange={handleChange}
+
+              />
+
+
+
+
+              {
+
+                errors.fullName &&
+
+                <p className="error-text">
+
+                  {errors.fullName}
+
+                </p>
+
+              }
+
+
+
+
+            </div>
+
+
+
+
+
+
+
+
+
+            <div className="input-group">
+
+
+
+              <FaEnvelope className="input-icon"/>
+
+
+
+
+
+              <input
+
+                type="email"
+
+                name="email"
+
+                placeholder="Enter Email"
+
+                value={formData.email}
+
+                onChange={handleChange}
+
+              />
+
+
+
+
+              {
+
+                errors.email &&
+
+                <p className="error-text">
+
+                  {errors.email}
+
+                </p>
+
+              }
+
+
+
+            </div>
+
+
+
+
+
+
+
+
+
+
+            <div className="input-group">
+
+
+
+              <FaLock className="input-icon"/>
+
+
+
+
+
+              <input
+
+                type="password"
+
+                name="password"
+
+                placeholder="Create Password"
+
+                value={formData.password}
+
+                onChange={handleChange}
+
+              />
+
+
+
+
+
+              {
+
+                errors.password &&
+
+                <p className="error-text">
+
+                  {errors.password}
+
+                </p>
+
+              }
+
+
+
+
+            </div>
+
+
+
+
+
+
+
+
+
+            <div className="input-group">
+
+
+
+              <FaPhone className="input-icon"/>
+
+
+
+
+              <input
+
+                type="text"
+
+                name="phone"
+
+                placeholder="Phone Number"
+
+                value={formData.phone}
+
+                onChange={handleChange}
+
+              />
+
+
+
+
+              {
+
+                errors.phone &&
+
+                <p className="error-text">
+
+                  {errors.phone}
+
+                </p>
+
+              }
+
+
+
+
+
+            </div>
+
+
+
+
+
+
+
+
+
+            <div className="input-group">
+
+
+
+              <FaMapMarkerAlt className="input-icon"/>
+
+
+
+
+
+              <input
+
+                type="text"
+
+                name="location"
+
+                placeholder="Location"
+
+                value={formData.location}
+
+                onChange={handleChange}
+
+              />
+
+
+
+
+              {
+
+                errors.location &&
+
+                <p className="error-text">
+
+                  {errors.location}
+
+                </p>
+
+              }
+
+
+
+
+
+            </div>
+
+
+
+
+
+
+
+
+
+            <div className="input-group">
+
+
+
+              <FaUserTag className="input-icon"/>
+
+
+
+
+
+              <select
+
+                name="role"
+
+                value={formData.role}
+
+                onChange={handleChange}
+
+                className="role-select"
+
+              >
+
+
+
+                <option value="">
+
+                  Select Role
+
+                </option>
+
+
+
+                <option value="ROLE_SELLER">
+
+                  Seller
+
+                </option>
+
+
+
+                <option value="ROLE_VENDOR">
+
+                  Vendor
+
+                </option>
+
+
+
+              </select>
+
+
+
+
+              {
+
+                errors.role &&
+
+                <p className="error-text">
+
+                  {errors.role}
+
+                </p>
+
+              }
+
+
+
+
+            </div>
+
+
+
+
+
+
+
+
+
+            <button type="submit">
+
+
+              Register
+
+
+            </button>
+
+
+
+
+
+          </form>
+
+
+
+
+
+
+
+
+
+          <div className="auth-footer">
+
+
+
+            Already have an account?
+
+
+
+            <Link to="/login">
+
+
+              Login
+
+
+            </Link>
+
+
+
+
+          </div>
+
+
+
+
+
+
+
         </div>
 
-        <h2>Create Account</h2>
 
-        <p>
-          Register as vendor or seller
-        </p>
 
-        <form onSubmit={handleSubmit}>
 
-          <div className="input-group">
-
-            <FaUser className="input-icon" />
-
-            <input
-              type="text"
-              name="fullName"
-              placeholder="Full Name"
-              value={formData.fullName}
-              onChange={handleChange}
-            />
-
-            {
-              errors.fullName &&
-              <p className="error-text">
-                {errors.fullName}
-              </p>
-            }
-
-          </div>
-
-          <div className="input-group">
-
-            <FaEnvelope className="input-icon" />
-
-            <input
-              type="email"
-              name="email"
-              placeholder="Enter Email"
-              value={formData.email}
-              onChange={handleChange}
-            />
-
-            {
-              errors.email &&
-              <p className="error-text">
-                {errors.email}
-              </p>
-            }
-
-          </div>
-
-          <div className="input-group">
-
-            <FaLock className="input-icon" />
-
-            <input
-              type="password"
-              name="password"
-              placeholder="Create Password"
-              value={formData.password}
-              onChange={handleChange}
-            />
-
-            {
-              errors.password &&
-              <p className="error-text">
-                {errors.password}
-              </p>
-            }
-
-          </div>
-
-          <div className="input-group">
-
-            <FaPhone className="input-icon" />
-
-            <input
-              type="text"
-              name="phone"
-              placeholder="Phone Number"
-              value={formData.phone}
-              onChange={handleChange}
-            />
-
-            {
-              errors.phone &&
-              <p className="error-text">
-                {errors.phone}
-              </p>
-            }
-
-          </div>
-
-          <div className="input-group">
-
-            <FaMapMarkerAlt className="input-icon" />
-
-            <input
-              type="text"
-              name="location"
-              placeholder="Location"
-              value={formData.location}
-              onChange={handleChange}
-            />
-
-            {
-              errors.location &&
-              <p className="error-text">
-                {errors.location}
-              </p>
-            }
-
-          </div>
-
-          <div className="input-group">
-
-            <FaUserTag className="input-icon" />
-
-            <select
-              name="role"
-              value={formData.role}
-              onChange={handleChange}
-              className="role-select"
-            >
-              <option value="">
-                Select Role
-              </option>
-
-              <option value="ROLE_SELLER">
-                Seller
-              </option>
-
-              <option value="ROLE_VENDOR">
-                Vendor
-              </option>
-
-            </select>
-
-          </div>
-
-          <button type="submit">
-            Register
-          </button>
-
-        </form>
-
-        <div className="auth-footer">
-
-          Already have an account?
-
-          <Link to="/login">
-            Login
-          </Link>
-
-        </div>
 
       </div>
 
+
+
+
+
     </div>
+
+
   );
+
 }

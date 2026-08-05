@@ -1,8 +1,8 @@
-import {
-    FaBoxes,
-    FaTint,
-    FaExclamationTriangle
-} from "react-icons/fa";
+import totalInventoryImage from "../../../assets/images/totalInven.jpeg";
+import milkTypeImage from "../../../assets/images/milk-type.jpeg";
+import lowItemImage from "../../../assets/images/lowItem.jpeg";
+
+import "../../../styles/vendor/dashboardCards.css";
 
 
 export default function SummaryCards({dashboard}){
@@ -17,10 +17,11 @@ export default function SummaryCards({dashboard}){
 
             value:dashboard?.totalInventory ?? 0,
 
-            icon:<FaBoxes/>
+            description:"Total stock available",
+
+            image:totalInventoryImage
 
         },
-
 
 
         {
@@ -29,10 +30,11 @@ export default function SummaryCards({dashboard}){
 
             value:dashboard?.totalMilkTypes ?? 0,
 
-            icon:<FaTint/>
+            description:"Available milk categories",
+
+            image:milkTypeImage
 
         },
-
 
 
         {
@@ -41,7 +43,9 @@ export default function SummaryCards({dashboard}){
 
             value:dashboard?.lowStockItems ?? 0,
 
-            icon:<FaExclamationTriangle/>
+            description:"Items requiring attention",
+
+            image:lowItemImage
 
         }
 
@@ -53,62 +57,55 @@ export default function SummaryCards({dashboard}){
     return(
 
 
-        <div className="summary-card-container">
+        <div className="dashboard-cards">
 
 
             {
-
-
-                cards.map(card=>(
+                cards.map((card,index)=>(
 
 
                     <div
-
-                        key={card.title}
-
-                        className="summary-card"
-
+                        className="kpi-card"
+                        key={index}
                     >
 
 
+                        <div className="kpi-image">
 
-                        <div className="summary-icon">
-
-                            {card.icon}
+                            <img
+                                src={card.image}
+                                alt={card.title}
+                            />
 
                         </div>
 
 
 
+                        <div className="kpi-content">
 
-                        <div className="summary-content">
 
-
-                            <h4>
-
+                            <h3>
                                 {card.title}
-
-                            </h4>
-
+                            </h3>
 
 
                             <h2>
-
                                 {card.value}
-
                             </h2>
 
 
-                        </div>
+                            <p>
+                                {card.description}
+                            </p>
 
+
+                        </div>
 
 
                     </div>
 
 
                 ))
-
-
             }
 
 
